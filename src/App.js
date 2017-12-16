@@ -1,21 +1,23 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import AppBar from 'material-ui/AppBar'
+import IconButton from 'material-ui/IconButton';
+import Menu from 'material-ui/svg-icons/navigation/menu';
+import FlatButton from 'material-ui/FlatButton';
 
-class App extends Component {
+export default class ThemeWrapper extends Component {
+
+  handleClick() {
+    alert('onClick triggered on the title component');
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+      <AppBar
+        title="SnapGrid PWA"
+        onRightIconButtonClick={this.handleClick}
+        iconElementLeft={<IconButton><Menu/></IconButton>}
+        iconElementRight={<FlatButton label="Save" />}
+      />
+    )
   }
 }
-
-export default App;
