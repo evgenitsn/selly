@@ -1,19 +1,19 @@
 import React, { Component } from 'react'
 
-import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
-import Paper from 'material-ui/Paper';
+import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation'
+import Paper from 'material-ui/Paper'
 
-import RestoreIcon from 'material-ui/svg-icons/action/restore';
-import FavoriteIcon from 'material-ui/svg-icons/action/favorite';
-import LocationIcon from 'material-ui/svg-icons/communication/location-on';
+import RestoreIcon from 'material-ui/svg-icons/action/restore'
+import FavoriteIcon from 'material-ui/svg-icons/action/favorite'
+import LocationIcon from 'material-ui/svg-icons/communication/location-on'
 
 export default class Footer extends Component {
 
   state = {
     selectedIndex: 0,
-  };
+  }
 
-  select = (index) => this.setState({selectedIndex: index});
+  select = (index) => this.setState({selectedIndex: index})
 
   render() {
     return (

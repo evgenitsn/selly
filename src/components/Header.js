@@ -2,18 +2,18 @@ import React, { Component } from 'react'
 
 import AppBar from 'material-ui/AppBar'
 
-import IconButton from 'material-ui/IconButton';
-import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton'
+import FlatButton from 'material-ui/FlatButton'
 
-import MenuIcon from 'material-ui/svg-icons/navigation/menu';
+import MenuIcon from 'material-ui/svg-icons/navigation/menu'
 
-const menuIcon = <IconButton><MenuIcon/></IconButton>;
-const saveButton = <FlatButton label="Save" />;
+const menuIcon = <IconButton><MenuIcon/></IconButton>
+const saveButton = <FlatButton label="Save" />
 
 export default class Header extends Component {
 
   handleClick() {
-    alert('onClick triggered on the title component');
+    alert('onClick triggered on the title component')
   }
 
   render() {
