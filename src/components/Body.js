@@ -5,12 +5,27 @@ export default class Header extends Component {
   render() {
     return (
       <div style={styles.body}>
-        <Post/>
-        <Post/>
-        <Post/>
-        <Post/>
-        <Post/>
-        <Post/>
+        <Post 
+          username='Username' 
+          date='Now' 
+          avatar={require('../assets/Avatar.png')}
+          image={require('../assets/Sofia.jpg')}
+          description='This is Sofia.'
+        />
+        <Post 
+          username='Username' 
+          date='Now' 
+          avatar={require('../assets/Avatar.png')}
+          image={require('../assets/Varna.jpg')}
+          description='This is Varna.'
+        />
+        <Post 
+          username='Username' 
+          date='Now' 
+          avatar={require('../assets/Avatar.png')}
+          image={require('../assets/Plovdiv.jpg')}
+          description='This is Plovdiv.'
+        />
       </div>
     )
   }
@@ -18,6 +33,7 @@ export default class Header extends Component {
 
 const styles = {
   body: {
-    marginTop: 80
+    marginTop: 80,
+    marginBottom: 80
   }
 }
