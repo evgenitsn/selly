@@ -1,23 +1,16 @@
-import React, { Component } from 'react'
-import AppBar from 'material-ui/AppBar'
-import IconButton from 'material-ui/IconButton';
-import Menu from 'material-ui/svg-icons/navigation/menu';
-import FlatButton from 'material-ui/FlatButton';
+import React, { Component, Fragment } from 'react'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import Body from './components/Body'
 
 export default class ThemeWrapper extends Component {
-
-  handleClick() {
-    alert('onClick triggered on the title component');
-  }
-
   render() {
     return (
-      <AppBar
-        title="SnapGrid PWA"
-        onRightIconButtonClick={this.handleClick}
-        iconElementLeft={<IconButton><Menu/></IconButton>}
-        iconElementRight={<FlatButton label="Save" />}
-      />
+      <Fragment>
+        <Header/>
+        <Body/>
+        <Footer/>
+      </Fragment>
     )
   }
 }
