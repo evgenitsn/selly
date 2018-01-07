@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation'
 import Paper from 'material-ui/Paper'
 
+import {Link} from 'react-router-dom'
+
 import HomeIcon from 'material-ui/svg-icons/action/home'
 import CameraIcon from 'material-ui/svg-icons/image/photo-camera'
 import ProfileIcon from 'material-ui/svg-icons/social/person'
@@ -20,16 +22,22 @@ export default class Footer extends Component {
       <Paper style={styles.footerContainer} zDepth={1}>
         <BottomNavigation selectedIndex={this.state.selectedIndex}>
           <BottomNavigationItem
+            style={styles.alignTextOfMenus}
+            containerElement={<Link to='/'/>}
             label="Home"
             icon={<HomeIcon/>}
             onClick={() => this.select(0)}
           />
           <BottomNavigationItem
+            style={styles.alignTextOfMenus}
+            containerElement={<Link to='/create'/>}
             label="Create"
             icon={<CameraIcon/>}
             onClick={() => this.select(1)}
           />
           <BottomNavigationItem
+            style={styles.alignTextOfMenus}
+            containerElement={<Link to='/profile'/>}
             label="Profile"
             icon={<ProfileIcon/>}
             onClick={() => this.select(2)}
@@ -45,5 +53,8 @@ const styles = {
     position: 'fixed',
     bottom: 0,
     width: '100%'
+  },
+  alignTextOfMenus: {
+    textAlign: 'center'
   }
 }
