@@ -3,9 +3,9 @@ import React, { Component } from 'react'
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation'
 import Paper from 'material-ui/Paper'
 
-import RestoreIcon from 'material-ui/svg-icons/action/restore'
-import FavoriteIcon from 'material-ui/svg-icons/action/favorite'
-import LocationIcon from 'material-ui/svg-icons/communication/location-on'
+import HomeIcon from 'material-ui/svg-icons/action/home'
+import CameraIcon from 'material-ui/svg-icons/image/photo-camera'
+import ProfileIcon from 'material-ui/svg-icons/social/person'
 
 export default class Footer extends Component {
 
@@ -20,18 +20,18 @@ export default class Footer extends Component {
       <Paper style={styles.footerContainer} zDepth={1}>
         <BottomNavigation selectedIndex={this.state.selectedIndex}>
           <BottomNavigationItem
-            label="Recents"
-            icon={<RestoreIcon/>}
+            label="Home"
+            icon={<HomeIcon/>}
             onClick={() => this.select(0)}
           />
           <BottomNavigationItem
-            label="Favorites"
-            icon={<FavoriteIcon/>}
+            label="Create"
+            icon={<CameraIcon/>}
             onClick={() => this.select(1)}
           />
           <BottomNavigationItem
-            label="Nearby"
-            icon={<LocationIcon/>}
+            label="Profile"
+            icon={<ProfileIcon/>}
             onClick={() => this.select(2)}
           />
         </BottomNavigation>
