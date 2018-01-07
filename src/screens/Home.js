@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Post from '../components/Post'
 
-export default class Feed extends Component {
+export default class Home extends Component {
   render() {
     return (
       <div style={styles.body}>
