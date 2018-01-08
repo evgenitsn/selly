@@ -1,9 +1,6 @@
 import React, { Component, Fragment } from 'react'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import Home from './screens/Home'
-import Create from './screens/Create'
-import Profile from './screens/Profile'
+import {Header, Footer} from './components'
+import {Home, Create, Profile} from './screens'
 import {Route} from 'react-router-dom'
 
 export default class ThemeWrapper extends Component {
