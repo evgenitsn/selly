@@ -19,11 +19,12 @@ export default class Header extends Component {
   render() {
     return (
       <AppBar
-        title="SnapGrid PWA"
+        title="Snappy"
         onRightIconButtonClick={this.handleClick}
         iconElementLeft={menuIcon}
         iconElementRight={saveButton}
         style={styles.headerContainer}
+        titleStyle={styles.titleStyle}
       />
     )
   }
@@ -35,5 +36,9 @@ const styles = {
     width: '100%',
     top: 0,
     overflow: 'hidden'
+  },
+  titleStyle: {
+    textAlign: 'center',
+    fontFamily: 'Pacifico'
   }
 }
