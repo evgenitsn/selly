@@ -1,10 +1,18 @@
 import React, { Component } from 'react'
+import RaisedButton from 'material-ui/RaisedButton'
+import {Link} from 'react-router-dom'
 
 export default class Login extends Component {
   render() {
     return (
       <div style={styles.body}>
-        <h1>Welcome</h1>
+        <h1 style={styles.title}>Welcome</h1>
+        <RaisedButton 
+          containerElement={<Link to='/'/>}
+          label="Skip" 
+          backgroundColor="#a4c639"
+          style={styles.skipButton} 
+        />
       </div>
     )
   }
@@ -12,9 +20,20 @@ export default class Login extends Component {
 
 const styles = {
   body: {
-    marginTop: 64,
-    marginBottom: 80,
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'column',
+    height: '100vh',
+    backgroundImage: 'linear-gradient(135deg, #9890e3 0%, #b1f4cf 100%)'
+  },
+  skipButton: {
+    margin: 12, 
+    width: 60,
+    marginBottom: 60
+  },
+  title: {
+    color: 'white',
+    paddingTop: 100
   }
 }
