@@ -8,6 +8,7 @@ import {Link} from 'react-router-dom'
 import HomeIcon from 'material-ui/svg-icons/action/home'
 import CameraIcon from 'material-ui/svg-icons/image/photo-camera'
 import ProfileIcon from 'material-ui/svg-icons/social/person'
+import LoginIcon from 'material-ui/svg-icons/action/lock-open'
 
 export default class Footer extends Component {
 
@@ -41,6 +42,13 @@ export default class Footer extends Component {
             label="Profile"
             icon={<ProfileIcon/>}
             onClick={() => this.select(2)}
+          />
+          <BottomNavigationItem
+            style={styles.alignTextOfMenus}
+            containerElement={<Link to='/login'/>}
+            label="Login"
+            icon={<LoginIcon/>}
+            onClick={() => this.select(3)}
           />
         </BottomNavigation>
       </Paper>

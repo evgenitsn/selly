@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
+import {Header, Footer} from '../components'
 import Webcam from 'react-webcam'
 
 export default class Feed extends Component {
@@ -16,19 +17,23 @@ export default class Feed extends Component {
 
   render() {
     return (
-      <div style={styles.body}>
-        <div style={styles.webcamContainer}>
-          <Webcam
-            audio={false}
-            ref={this.setRef}
-            screenshotFormat="image/jpeg"
-            width={300}
-            height={250}
-          />
+      <Fragment>
+        <Header/>
+        <div style={styles.body}>
+          <div style={styles.webcamContainer}>
+            <Webcam
+              audio={false}
+              ref={this.setRef}
+              screenshotFormat="image/jpeg"
+              width={300}
+              height={250}
+            />
+          </div>
+          <button onClick={this.capture}>Capture photo</button>
+          <img alt="Embedded Image" src={this.state.imageSrc} />
         </div>
-        <button onClick={this.capture}>Capture photo</button>
-        <img alt="Embedded Image" src={this.state.imageSrc} />
-      </div>
+        <Footer/>
+      </Fragment>
     )
   }
 }

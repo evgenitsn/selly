@@ -1,14 +1,20 @@
-import React, { Component } from 'react'
-import Avatar from 'material-ui/Avatar';
+import React, { Component, Fragment } from 'react'
+import {Header, Footer} from '../components'
+import Avatar from 'material-ui/Avatar'
 
 export default class Profile extends Component {
   render() {
     return (
-      <div style={styles.body}>
-        <div style={styles.profileHeaderContainer}>
-            <Avatar size={80} src={require("../assets/Avatar.png")} />
+      <Fragment>
+        <Header/>
+        <div style={styles.body}>
+          <div style={styles.profileHeaderContainer}>
+              <Avatar size={80} src={require("../assets/Avatar.png")} />
+          </div>
         </div>
-      </div>
+        <Footer/>
+      </Fragment>
+      
     )
   }
 }
