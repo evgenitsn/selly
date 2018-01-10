@@ -19,7 +19,7 @@ export default class Header extends Component {
   render() {
     return (
       <AppBar
-        title="Snappy"
+        title="Selly"
         onRightIconButtonClick={this.handleClick}
         iconElementLeft={menuIcon}
         iconElementRight={saveButton}
@@ -38,7 +38,6 @@ const styles = {
     overflow: 'hidden'
   },
   titleStyle: {
-    textAlign: 'center',
     fontFamily: 'Pacifico'
   }
 }
