@@ -1,8 +1,10 @@
 import React, { Component, Fragment } from 'react'
+import { withFirebase } from 'react-redux-firebase'
+
 import {Header, Footer} from '../components'
 import {Post} from '../components'
 
-export default class Home extends Component {
+class Home extends Component {
   render() {
     return (
       <Fragment>
@@ -35,6 +37,8 @@ export default class Home extends Component {
     )
   }
 }
+
+export default withFirebase(Home)
 
 const styles = {
   body: {
