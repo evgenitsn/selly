@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 
 import AppBar from 'material-ui/AppBar'
 
@@ -8,7 +9,6 @@ import FlatButton from 'material-ui/FlatButton'
 import MenuIcon from 'material-ui/svg-icons/navigation/menu'
 
 const menuIcon = <IconButton><MenuIcon/></IconButton>
-const saveButton = <FlatButton label="Save" />
 
 export default class Header extends Component {
 
@@ -22,7 +22,7 @@ export default class Header extends Component {
         title="Selly"
         onRightIconButtonClick={this.handleClick}
         iconElementLeft={menuIcon}
-        iconElementRight={saveButton}
+        showMenuIconButton={false}
         style={styles.headerContainer}
         titleStyle={styles.titleStyle}
       />
@@ -34,10 +34,13 @@ const styles = {
   headerContainer: {
     position: 'fixed',
     width: '100%',
+    height: '7%',
     top: 0,
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   titleStyle: {
-    fontFamily: 'Pacifico'
+    fontFamily: 'Pacifico',
+    textAlign: 'center',
+    lineHeight: '46px'
   }
 }
