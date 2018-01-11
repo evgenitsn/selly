@@ -35,7 +35,7 @@ export default class Register extends Component {
           <RaisedButton 
             containerElement={<Link to='/'/>}
             label="Register" 
-            backgroundColor="#64DD17"
+            backgroundColor="#9575CD"
             labelColor="#fafafa"
             style={styles.registerButton} 
           />

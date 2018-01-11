@@ -25,7 +25,7 @@ export default class Login extends Component {
           <RaisedButton 
             containerElement={<Link to='/'/>}
             label="Login" 
-            backgroundColor="#64DD17"
+            backgroundColor="#9575CD"
             labelColor="#fafafa"
             style={styles.loginButton} 
           />

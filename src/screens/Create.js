@@ -5,6 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import MenuItem from 'material-ui/MenuItem'
 
 import {Header, Footer} from '../components'
+import { green500 } from 'material-ui/styles/colors';
 // import Webcam from 'react-webcam'
 
 export default class Create extends Component {
@@ -13,7 +14,7 @@ export default class Create extends Component {
   };
 
   handleChange = (event, index, value) => this.setState({value});
-
+  // Add Stepper for the ad
   render() {
     return (
       <Fragment>
@@ -57,7 +58,7 @@ export default class Create extends Component {
           </div>
           <RaisedButton
             label="Create" 
-            backgroundColor="#64DD17"
+            backgroundColor={green500}
             labelColor="#fafafa"
           />
         </div>
