@@ -6,7 +6,7 @@ import Paper from 'material-ui/Paper'
 import {Link} from 'react-router-dom'
 
 import HomeIcon from 'material-ui/svg-icons/action/home'
-import CameraIcon from 'material-ui/svg-icons/image/photo-camera'
+import AddIcon from 'material-ui/svg-icons/content/add-circle-outline'
 import ProfileIcon from 'material-ui/svg-icons/social/person'
 import LoginIcon from 'material-ui/svg-icons/action/lock-open'
 
@@ -25,7 +25,7 @@ export default class Footer extends Component {
             style={styles.alignTextOfMenus}
             containerElement={<Link to='/create'/>}
             label="Create"
-            icon={<CameraIcon/>}
+            icon={<AddIcon/>}
           />
           <BottomNavigationItem
             style={styles.alignTextOfMenus}
