@@ -3,7 +3,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import rootReducer from './rootReducer'
-import { reactReduxFirebase, firebaseReducer } from 'react-redux-firebase'
+import { reactReduxFirebase } from 'react-redux-firebase'
 import firebase from 'firebase'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
