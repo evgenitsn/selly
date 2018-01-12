@@ -1,10 +1,9 @@
 import { combineReducers } from 'redux'
 import { firebaseReducer } from 'react-redux-firebase'
-
-const setupReducer = (state = { }, action) => state
+import { footerReducer } from './components/Footer-duck'
 
 const rootReducer = combineReducers({
-  setupReducer,
+  footerReducer,
   firebase: firebaseReducer,
 })
 

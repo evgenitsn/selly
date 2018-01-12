@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
+import { changeNavBarOption } from './Footer-duck'
 
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation'
 import Paper from 'material-ui/Paper'
@@ -11,78 +14,59 @@ import ProfileIcon from 'material-ui/svg-icons/social/person'
 import SearchIcon from 'material-ui/svg-icons/action/search'
 import LoginIcon from 'material-ui/svg-icons/action/lock-open'
 
-export default class Footer extends Component {
-
-  state = {
-    selectedIndex: 0,
-  };
-
-  componentWillMount() {
-    this.initialNavBarSelectedItem()
-  }
-
-  initialNavBarSelectedItem() {
-    let index = 0
-    switch(window.location.pathname) {
-      case '/search':
-        index = 1
-        break
-      case '/create':
-        index = 2
-        break
-      case '/profile':
-        index = 3
-        break
-    }
-    this.select(index)
-  }
-
-  select = (index) => this.setState({selectedIndex: index});
-
+class Footer extends Component {
   render() {
     return (
       <Paper style={styles.footerContainer} zDepth={1}>
-        <BottomNavigation selectedIndex={this.state.selectedIndex}>
+        <BottomNavigation selectedIndex={this.props.selectedOption}>
           <BottomNavigationItem
             style={styles.alignTextOfMenus}
             containerElement={<Link to='/'/>}
             label="Home"
             icon={<HomeIcon/>}
-            onClick={() => this.select(0)}
+            onClick={() => this.props.changeNavBarOption(0)}
           />
           <BottomNavigationItem
             style={styles.alignTextOfMenus}
             containerElement={<Link to='/search'/>}
             label="Search"
             icon={<SearchIcon/>}
-            onClick={() => this.select(1)}
+            onClick={() => this.props.changeNavBarOption(1)}
           />
           <BottomNavigationItem
             style={styles.alignTextOfMenus}
             containerElement={<Link to='/create'/>}
             label="Create"
             icon={<AddIcon/>}
-            onClick={() => this.select(2)}
+            onClick={() => this.props.changeNavBarOption(2)}
           />
           <BottomNavigationItem
             style={styles.alignTextOfMenus}
             containerElement={<Link to='/profile'/>}
             label="Profile"
             icon={<ProfileIcon/>}
-            onClick={() => this.select(3)}
+            onClick={() => this.props.changeNavBarOption(3)}
           />
           <BottomNavigationItem
             style={styles.alignTextOfMenus}
             containerElement={<Link to='/login'/>}
             label="Login"
             icon={<LoginIcon/>}
-            onClick={() => this.select(4)}
+            onClick={() => this.props.changeNavBarOption(4)}
           />
         </BottomNavigation>
       </Paper>
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    selectedOption: state.footerReducer.selectedOption
+  }
+}
+
+export default connect(mapStateToProps, { changeNavBarOption })(Footer)
 
 const styles = {
   footerContainer: {
