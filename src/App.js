@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import {Home, Create, Profile, Login, Register} from './screens'
+import {Home, Create, Profile, Login, Register, Search} from './screens'
 import {Route} from 'react-router-dom'
 
 export default class ThemeWrapper extends Component {
@@ -11,6 +11,7 @@ export default class ThemeWrapper extends Component {
         <Route path="/profile" exact component={Profile}/>
         <Route path="/login" exact component={Login}/>
         <Route path="/register" exact component={Register}/>
+        <Route path="/search" exact component={Search}/>
       </Fragment>
     )
   }
