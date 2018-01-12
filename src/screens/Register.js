@@ -1,13 +1,25 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+
+import firebase from 'firebase'
+
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 import DatePicker from 'material-ui/DatePicker'
 
-import {Link} from 'react-router-dom'
 
-export default class Register extends Component {
+class Register extends Component {
+  createNewUser = ({ email, password, username }) => {
+    firebase.createUser(
+      { email, password },
+      { username, email }
+    ).then(res => console.log(res))
+  }
+
   render() {
+    console.log(this.props)
     return (
       <div style={{...styles.flex, ...styles.body}}>
         <div style={{...styles.flex}}>  
@@ -38,6 +50,7 @@ export default class Register extends Component {
             backgroundColor="#9575CD"
             labelColor="#fafafa"
             style={styles.registerButton} 
+            onClick={() => this.createNewUser({username: 'tester', email: 'test@test.com', password: 'testest1'})}
           />
           <FlatButton 
             containerElement={<Link to='/login'/>}
@@ -49,6 +62,15 @@ export default class Register extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+    profile: state.firebase.profile
+  }
+}
+
+export default connect(mapStateToProps, {})(Register)
 
 const styles = {
   flex: {
