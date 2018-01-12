@@ -46,7 +46,7 @@ const createStoreWithFirebase = compose(
 )(createStore)
 
 
-const store = createStoreWithFirebase(rootReducer, {})
+const store = createStoreWithFirebase(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 export default class Main extends Component {
   render() {
