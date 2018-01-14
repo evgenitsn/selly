@@ -1,15 +1,36 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { Field, reduxForm } from 'redux-form'
+import firebase from 'firebase'
+
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
-import TextField from 'material-ui/TextField'
-import {Link} from 'react-router-dom'
-import {Field, reduxForm} from 'redux-form'
 
 import {FormTextField} from '../components'
 import validate from '../validate'
 
 class Login extends Component {
+
+  login = ({email, password}) => {
+    firebase.login({email, password}).then(res => {
+      console.log(res)
+      this.props.reset()
+      if(this.props.auth.isLoaded) {
+        console.log('go to home')
+      }
+    }).catch(e => {
+      console.log('Login Error: ', e)
+    })
+  }
+
+  handleSubmit = (e) => {
+    if(this.props.valid) {
+      const {email, password} = this.props.formValues
+      this.login({email, password})
+    }
+  }
+
   render() {
     const {pristine, submitting, valid} = this.props
     return (
@@ -22,9 +43,9 @@ class Login extends Component {
         <div style={{...styles.flex, marginTop: '6em'}}>
           <form style={{...styles.flex}}>
             <Field
-              name="username"
+              name="email"
               component={FormTextField}
-              floatingLabelText="Username"
+              floatingLabelText="Email"
               floatingLabelStyle={{color: '#fafafa'}}
             />
             <Field
