@@ -9,7 +9,7 @@ import FlatButton from 'material-ui/FlatButton'
 import DatePicker from 'material-ui/DatePicker'
 
 import {FormTextField} from '../components'
-import validate from '../validate';
+import validate from '../validate'
 
 class Register extends Component {
   createNewUser = ({ email, password, username }) => {
@@ -35,7 +35,6 @@ class Register extends Component {
 
   render() {
     const {pristine, submitting, valid} = this.props
-    console.log(this.props)
     return (
       <div style={{...styles.flex, ...styles.body}}>
         <div style={{...styles.flex}}>  
