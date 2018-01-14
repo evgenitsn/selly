@@ -21,6 +21,8 @@ class Register extends Component {
       if(this.props.auth.isLoaded) {
         console.log('go to home')
       }
+    }).catch(e => {
+      console.log('Auth Error: ', e)
     })
   }
 
