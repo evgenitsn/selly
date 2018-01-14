@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-
+import {Field, reduxForm} from 'redux-form'
 import firebase from 'firebase'
 
 import RaisedButton from 'material-ui/RaisedButton'
@@ -9,44 +9,29 @@ import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 import DatePicker from 'material-ui/DatePicker'
 
+import validate from '../validate';
 
 class Register extends Component {
-
-  constructor(props) {
-    super(props)
-    this.state = {
-      username: '',
-      email: '',
-      password: '',
-      repeatPassword: ''
-    }
-
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  handleChange(event) {
-    const target = event.target
-    const value = target.type === 'checkbox' ? target.checked : target.value
-    const name = target.name
-    this.setState({
-      [name]: value
-    });
-  }
-
-  handleSubmit(event) {
-    console.log(this.state)
-    event.preventDefault()
-  }
-
   createNewUser = ({ email, password, username }) => {
     firebase.createUser(
       { email, password },
       { username, email }
-    ).then(res => console.log(res))
+    ).then(res => {
+      if(this.props.auth.isLoaded) {
+        console.log('go to home')
+      }
+    })
+  }
+
+  handleSubmit = (e) => {
+    if(this.props.valid) {
+      const {username, email, password} = this.props.formValues
+      this.createNewUser({email, password, username})
+    }
   }
 
   render() {
+    const {pristine, reset, submitting, valid} = this.props
     console.log(this.props)
     return (
       <div style={{...styles.flex, ...styles.body}}>
@@ -55,45 +40,42 @@ class Register extends Component {
           <h1 style={styles.title}>Selly</h1>
         </div>
         <div style={{...styles.flex, marginTop: '1em'}}>
-          <TextField
-            name="username"
-            floatingLabelText="Username"
-            floatingLabelStyle={{color: '#fafafa'}}
-            value={this.state.username}
-            onChange={this.handleChange}
-          />
-          <TextField          
-            name="email"
-            floatingLabelText="Email"
-            floatingLabelStyle={{color: '#fafafa'}}
-            value={this.state.email}
-            onChange={this.handleChange}
-          />
-          <TextField
-            name="password"
-            type="password"
-            floatingLabelText="Password"
-            floatingLabelStyle={{color: '#fafafa'}}
-            value={this.state.password}
-            onChange={this.handleChange}
-          />
-          <TextField
-            name="repeatPassword"
-            type="password"
-            floatingLabelText="Repeat Password"
-            floatingLabelStyle={{color: '#fafafa'}}
-            value={this.state.repeatPassword}
-            onChange={this.handleChange}
-          />
-          
-          <RaisedButton 
-            containerElement={<Link to='/'/>}
-            label="Register" 
-            backgroundColor="#9575CD"
-            labelColor="#fafafa"
-            style={styles.registerButton} 
-            onClick={(e) => this.handleSubmit(e)}
-          />
+          <form style={{...styles.flex}}>
+            <Field
+              name="username"
+              component={renderTextField}
+              floatingLabelText="Username"
+              floatingLabelStyle={{color: '#fafafa'}}
+            />
+            <Field 
+              name="email" 
+              component={renderTextField} 
+              floatingLabelText="Email"
+              floatingLabelStyle={{color: '#fafafa'}}
+            />
+            <Field
+              name="password"
+              type="password"
+              component={renderTextField}
+              floatingLabelText="Password"
+              floatingLabelStyle={{color: '#fafafa'}}
+            />
+            <Field
+              name="repeatPassword"
+              type="password"
+              component={renderTextField}
+              floatingLabelText="Repeat Password"
+              floatingLabelStyle={{color: '#fafafa'}}
+            />
+            <RaisedButton 
+              label="Register" 
+              backgroundColor="#9575CD"
+              labelColor="#fafafa"
+              style={styles.registerButton} 
+              disabled={!valid || pristine || submitting}
+              onClick={(e) => this.handleSubmit(e)}
+            />
+          </form>
           <FlatButton 
             containerElement={<Link to='/login'/>}
             labelStyle={{color:"#fafafa"}}
@@ -108,11 +90,23 @@ class Register extends Component {
 const mapStateToProps = (state) => {
   return {
     auth: state.firebase.auth,
-    profile: state.firebase.profile
+    profile: state.firebase.profile,
+    formValues: state.form.Register.values
   }
 }
 
-export default connect(mapStateToProps, {})(Register)
+Register = connect(mapStateToProps, {})(Register)
+export default reduxForm({form: 'Register', validate})(Register)
+
+const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
+  <TextField
+    hintText={label}
+    floatingLabelText={label}
+    errorText={touched && error}
+    {...input}
+    {...custom}
+  />
+)
 
 const styles = {
   flex: {
