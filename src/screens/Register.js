@@ -6,9 +6,9 @@ import firebase from 'firebase'
 
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
-import TextField from 'material-ui/TextField'
 import DatePicker from 'material-ui/DatePicker'
 
+import {FormTextField} from '../components'
 import validate from '../validate';
 
 class Register extends Component {
@@ -17,6 +17,7 @@ class Register extends Component {
       { email, password },
       { username, email }
     ).then(res => {
+      this.props.reset()
       if(this.props.auth.isLoaded) {
         console.log('go to home')
       }
@@ -43,27 +44,27 @@ class Register extends Component {
           <form style={{...styles.flex}}>
             <Field
               name="username"
-              component={renderTextField}
+              component={FormTextField}
               floatingLabelText="Username"
               floatingLabelStyle={{color: '#fafafa'}}
             />
             <Field 
               name="email" 
-              component={renderTextField} 
+              component={FormTextField} 
               floatingLabelText="Email"
               floatingLabelStyle={{color: '#fafafa'}}
             />
             <Field
               name="password"
               type="password"
-              component={renderTextField}
+              component={FormTextField}
               floatingLabelText="Password"
               floatingLabelStyle={{color: '#fafafa'}}
             />
             <Field
               name="repeatPassword"
               type="password"
-              component={renderTextField}
+              component={FormTextField}
               floatingLabelText="Repeat Password"
               floatingLabelStyle={{color: '#fafafa'}}
             />
@@ -99,16 +100,6 @@ const mapStateToProps = (state) => {
 
 Register = connect(mapStateToProps, {})(Register)
 export default reduxForm({form: 'Register', validate})(Register)
-
-const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-  <TextField
-    hintText={label}
-    floatingLabelText={label}
-    errorText={touched && error}
-    {...input}
-    {...custom}
-  />
-)
 
 const styles = {
   flex: {
