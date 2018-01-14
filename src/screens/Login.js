@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 import {Link} from 'react-router-dom'
+import {Field, reduxForm} from 'redux-form'
 
-export default class Login extends Component {
+import {FormTextField} from '../components'
+import validate from '../validate'
+
+class Login extends Component {
   render() {
+    const {pristine, submitting, valid} = this.props
     return (
       <div style={{...styles.flex, ...styles.body}}>
         <div style={{...styles.flex}}>  
@@ -14,31 +20,52 @@ export default class Login extends Component {
           <p style={styles.slogan}>Insert some kind of slogan here.</p>
         </div>
         <div style={{...styles.flex, marginTop: '6em'}}>
-          <TextField
-            floatingLabelText="Username"
-            floatingLabelStyle={{color: '#fafafa'}}
-          />
-          <TextField
-            floatingLabelText="Password"
-            floatingLabelStyle={{color: '#fafafa'}}
-          />
-          <RaisedButton 
-            containerElement={<Link to='/'/>}
-            label="Login" 
-            backgroundColor="#9575CD"
-            labelColor="#fafafa"
-            style={styles.loginButton} 
-          />
-          <FlatButton 
-            containerElement={<Link to='/register'/>}
-            labelStyle={{color:"#fafafa"}}
-            label="Join us"
-          />
+          <form style={{...styles.flex}}>
+            <Field
+              name="username"
+              component={FormTextField}
+              floatingLabelText="Username"
+              floatingLabelStyle={{color: '#fafafa'}}
+            />
+            <Field
+              name="password"
+              type="password"
+              component={FormTextField}
+              floatingLabelText="Password"
+              floatingLabelStyle={{color: '#fafafa'}}
+            />
+            <RaisedButton 
+              label="Login" 
+              backgroundColor="#9575CD"
+              labelColor="#fafafa"
+              style={styles.loginButton} 
+              disabledBackgroundColor = "lightgrey"
+              disabledLabelColor = "white"
+              disabled={!valid || pristine || submitting}
+              onClick={(e) => this.handleSubmit(e)}
+            />
+            <FlatButton 
+              containerElement={<Link to='/register'/>}
+              labelStyle={{color:"#fafafa"}}
+              label="Join us"
+            />
+          </form>
         </div>
       </div>
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+    profile: state.firebase.profile,
+    formValues: state.form.Login.values
+  }
+}
+
+Login = connect(mapStateToProps, {})(Login)
+export default reduxForm({form: 'Login', validate})(Login)
 
 const styles = {
   flex: {
