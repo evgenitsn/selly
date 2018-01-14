@@ -31,7 +31,7 @@ class Register extends Component {
   }
 
   render() {
-    const {pristine, reset, submitting, valid} = this.props
+    const {pristine, submitting, valid} = this.props
     console.log(this.props)
     return (
       <div style={{...styles.flex, ...styles.body}}>
@@ -72,6 +72,8 @@ class Register extends Component {
               backgroundColor="#9575CD"
               labelColor="#fafafa"
               style={styles.registerButton} 
+              disabledBackgroundColor = "lightgrey"
+              disabledLabelColor = "white"
               disabled={!valid || pristine || submitting}
               onClick={(e) => this.handleSubmit(e)}
             />
@@ -122,7 +124,6 @@ const styles = {
   },
   registerButton: {
     margin: 12, 
-    width: 60,
     marginTop: 30,
   },
   welcomeMsg: {
