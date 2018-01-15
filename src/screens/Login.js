@@ -34,6 +34,12 @@ class Login extends Component {
       console.log(res)
       console.log(this.props.profile)
       console.log(this.props.auth)
+    }).catch(e => {
+      if(e.code === "auth/user-not-found"){
+        console.log('There is no user record corresponding to this identifier. The user may have been deleted.')
+      } else {
+        console.log('Unexpected Error: ', e)
+      }
     })
   }
 
@@ -55,7 +61,8 @@ class Login extends Component {
         </div>
         <div style={{...styles.flex, marginTop: '6em'}}>
         {this.props.firebase.authError ? <div>{this.props.firebase.authError.code}</div>: null}
-        {this.props.firebase.auth.email ? <div>{this.props.firebase.auth.email}</div>: null}
+        {this.props.firebase.auth.email ? <div>{'Auth ' + this.props.firebase.auth.email}</div>: null}
+        {this.props.firebase.profile.email ? <div>{'Profile ' + this.props.firebase.profile.email}</div>: null}
           <form style={{...styles.flex}}>
             <Field
               name="email"
