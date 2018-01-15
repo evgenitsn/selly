@@ -11,16 +11,20 @@ import {FormTextField} from '../components'
 import validate from '../validate'
 
 class Login extends Component {
-
   login = ({email, password}) => {
+    let {auth, profile} = this.props.firebase
     firebase.login({email, password}).then(res => {
-      console.log(res)
       this.props.reset()
-      if(this.props.auth.isLoaded) {
-        console.log('go to home')
+      if(auth.isLoaded) {
+        console.log('Success', auth)
+        console.log('Success', profile)
       }
     }).catch(e => {
-      console.log('Login Error: ', e)
+      if(e.code === "auth/user-not-found"){
+        console.log('There is no user record corresponding to this identifier. The user may have been deleted.')
+      } else {
+        console.log('Unexpected Error: ', e)
+      }
     })
   }
 
@@ -32,7 +36,7 @@ class Login extends Component {
   }
 
   render() {
-    const {pristine, submitting, valid} = this.props
+    const {pristine, submitting, valid, firebase} = this.props
     return (
       <div style={{...styles.flex, ...styles.body}}>
         <div style={{...styles.flex}}>  
@@ -41,6 +45,7 @@ class Login extends Component {
           <p style={styles.slogan}>Insert some kind of slogan here.</p>
         </div>
         <div style={{...styles.flex, marginTop: '6em'}}>
+        {firebase.authError ? <div>{firebase.authError.code}</div>: null}
           <form style={{...styles.flex}}>
             <Field
               name="email"
@@ -79,8 +84,7 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.firebase.auth,
-    profile: state.firebase.profile,
+    firebase: state.firebase,
     formValues: state.form.Login.values
   }
 }
