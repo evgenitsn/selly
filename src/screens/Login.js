@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form'
 import GoogleButton from 'react-google-button'
 import firebase from 'firebase'
@@ -52,6 +52,15 @@ class Login extends Component {
 
   render() {
     const {pristine, submitting, valid} = this.props
+    
+    if(!this.props.firebase.profile.isEmpty) {
+      return <Redirect to="/profile"/>
+    }
+
+    if(!this.props.firebase.profile.isLoaded) {
+      return <div style={{margin: 100}}>Loading</div>
+    }
+    
     return (
       <div style={{...styles.flex, ...styles.body}}>
         <div style={{...styles.flex}}>  
@@ -61,8 +70,6 @@ class Login extends Component {
         </div>
         <div style={{...styles.flex, marginTop: '6em'}}>
         {this.props.firebase.authError ? <div>{this.props.firebase.authError.code}</div>: null}
-        {this.props.firebase.auth.email ? <div>{'Auth ' + this.props.firebase.auth.email}</div>: null}
-        {this.props.firebase.profile.email ? <div>{'Profile ' + this.props.firebase.profile.email}</div>: null}
           <form style={{...styles.flex}}>
             <Field
               name="email"
