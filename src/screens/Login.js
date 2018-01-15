@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form'
+import GoogleButton from 'react-google-button'
 import firebase from 'firebase'
 
 import RaisedButton from 'material-ui/RaisedButton'
@@ -28,6 +29,14 @@ class Login extends Component {
     })
   }
 
+  googleLogin = () => {
+    firebase.login({ provider: 'google', type: 'popup' }).then(res => {
+      console.log(res)
+      console.log(this.props.profile)
+      console.log(this.props.auth)
+    })
+  }
+
   handleSubmit = (e) => {
     if(this.props.valid) {
       const {email, password} = this.props.formValues
@@ -36,7 +45,7 @@ class Login extends Component {
   }
 
   render() {
-    const {pristine, submitting, valid, firebase} = this.props
+    const {pristine, submitting, valid} = this.props
     return (
       <div style={{...styles.flex, ...styles.body}}>
         <div style={{...styles.flex}}>  
@@ -45,7 +54,8 @@ class Login extends Component {
           <p style={styles.slogan}>Insert some kind of slogan here.</p>
         </div>
         <div style={{...styles.flex, marginTop: '6em'}}>
-        {firebase.authError ? <div>{firebase.authError.code}</div>: null}
+        {this.props.firebase.authError ? <div>{this.props.firebase.authError.code}</div>: null}
+        {this.props.firebase.auth.email ? <div>{this.props.firebase.auth.email}</div>: null}
           <form style={{...styles.flex}}>
             <Field
               name="email"
@@ -69,6 +79,10 @@ class Login extends Component {
               disabledLabelColor = "white"
               disabled={!valid || pristine || submitting}
               onClick={(e) => this.handleSubmit(e)}
+            />
+            <GoogleButton
+              style={{width: '30%'}}
+              onClick={() => this.googleLogin()}
             />
             <FlatButton 
               containerElement={<Link to='/register'/>}
