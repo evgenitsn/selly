@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import firebase from 'firebase'
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 
 import RaisedButton from 'material-ui/RaisedButton'
 import Avatar from 'material-ui/Avatar'
@@ -8,8 +8,13 @@ import Avatar from 'material-ui/Avatar'
 import {Header, Footer} from '../components'
 
 export default class Profile extends Component {
+  logout = () => {
+    firebase.logout().then(() => {
+      this.props.history.push('/login')
+    })
+  }
+
   render() {
-    console.log()
     return (
       <Fragment>
         <Header/>
@@ -23,10 +28,7 @@ export default class Profile extends Component {
               backgroundColor="#9575CD"
               labelColor="#fafafa"
               style={styles.registerButton} 
-              onClick={() => {
-                firebase.logout()
-                this.props.history.push('/login')
-              }}
+              onClick={() => this.logout()}
             />
           </div>
         </div>
