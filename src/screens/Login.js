@@ -71,6 +71,7 @@ class Login extends Component {
               component={FormTextField}
               floatingLabelText="Email"
               floatingLabelStyle={{color: '#fafafa'}}
+              inputStyle={{color: 'white'}}
             />
             <Field
               name="password"
@@ -78,6 +79,7 @@ class Login extends Component {
               component={FormTextField}
               floatingLabelText="Password"
               floatingLabelStyle={{color: '#fafafa'}}
+              inputStyle={{color: 'white'}}
             />
             <RaisedButton 
               label="Login" 
