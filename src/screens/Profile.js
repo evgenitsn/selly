@@ -6,9 +6,7 @@ import Avatar from 'material-ui/Avatar'
 
 export default class Profile extends Component {
   logout = () => {
-    firebase.logout().then(() => {
-      // this.props.history.push('/login')
-    })
+    firebase.logout()
   }
 
   render() {

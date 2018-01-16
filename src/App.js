@@ -6,7 +6,7 @@ import {Route, Switch, Redirect} from 'react-router-dom'
 
 class App extends Component {
   render() {
-    if(this.props.firebase.auth.isEmpty){
+    if(this.props.firebase.auth.isEmpty && this.props.firebase.auth.isLoaded){
       return (
         <Switch>
           <Route path="/" exact component={Login}/>
@@ -15,7 +15,7 @@ class App extends Component {
           <Redirect to="/login"/>
         </Switch>
       )
-    } else if(!this.props.firebase.auth.isEmpty) {
+    } else if(!this.props.firebase.auth.isEmpty && this.props.firebase.auth.isLoaded) {
       return (
         <Fragment>
           <Header/>

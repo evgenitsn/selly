@@ -32,14 +32,6 @@ class Register extends Component {
 
   render() {
     const {pristine, submitting, valid} = this.props
-    if(!this.props.firebase.profile.isEmpty) {
-      return <Redirect to="/profile"/>
-    }
-
-    if(!this.props.firebase.profile.isLoaded) {
-      return <Loading/>
-    }
-
     return (
       <div style={{...styles.flex, ...styles.body}}>
         <div style={{...styles.flex}}>  

@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import { withFirebase } from 'react-redux-firebase'
-
 import {Post} from '../components'
 
 class Home extends Component {
@@ -33,7 +31,7 @@ class Home extends Component {
   }
 }
 
-export default withFirebase(Home)
+export default Home
 
 const styles = {
   body: {

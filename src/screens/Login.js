@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form'
 import GoogleButton from 'react-google-button'
 import firebase from 'firebase'
@@ -8,34 +8,33 @@ import firebase from 'firebase'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 
-import {FormTextField, Loading} from '../components'
+import {FormTextField} from '../components'
 import validate from '../validate'
 
 class Login extends Component {
+  //SHOW TOAST WITH MSG
   login = ({email, password}) => {
-    firebase.login({email, password}).then(res => {
-      this.props.reset()
-    }).catch(e => {
-      if(e.code === "auth/user-not-found"){
-        console.log('There is no user record corresponding to this identifier. The user may have been deleted.')
-      } else {
-        console.log('Unexpected Error: ', e)
-      }
+    firebase.login({email, password})
+      .then(res => this.props.reset())
+      .catch(e => {
+        if(e.code === "auth/user-not-found"){
+          console.log('There is no user record corresponding to this identifier. The user may have been deleted.')
+        } else {
+          console.log('Unexpected Error: ', e)
+        }
     })
   }
 
   googleLogin = () => {
-    firebase.login({ provider: 'google', type: 'popup' }).then(res => {
-      console.log(res)
-      console.log(this.props.profile)
-      console.log(this.props.auth)
-    }).catch(e => {
-      if(e.code === "auth/user-not-found"){
-        console.log('There is no user record corresponding to this identifier. The user may have been deleted.')
-      } else {
-        console.log('Unexpected Error: ', e)
-      }
-    })
+    firebase.login({ provider: 'google', type: 'popup' })
+      .then()
+      .catch(e => {
+        if(e.code === "auth/user-not-found"){
+          console.log('There is no user record corresponding to this identifier. The user may have been deleted.')
+        } else {
+          console.log('Unexpected Error: ', e)
+        }
+      })
   }
 
   handleSubmit = (e) => {
@@ -47,15 +46,6 @@ class Login extends Component {
 
   render() {
     const {pristine, submitting, valid} = this.props
-    
-    if(!this.props.firebase.profile.isEmpty) {
-      return <Redirect to="/profile"/>
-    }
-
-    if(!this.props.firebase.profile.isLoaded) {
-      return <Loading/>
-    }
-    
     return (
       <div style={{...styles.flex, ...styles.body}}>
         <div style={{...styles.flex}}>  

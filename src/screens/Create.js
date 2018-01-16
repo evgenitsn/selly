@@ -5,7 +5,6 @@ import RaisedButton from 'material-ui/RaisedButton'
 import MenuItem from 'material-ui/MenuItem'
 
 import { green500 } from 'material-ui/styles/colors';
-// import Webcam from 'react-webcam'
 
 export default class Create extends Component {
   state = {
