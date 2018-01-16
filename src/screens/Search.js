@@ -1,17 +1,11 @@
-import React, { Component, Fragment } from 'react'
-import {Header, Footer} from '../components'
+import React, { Component } from 'react'
 
 export default class Search extends Component {
   render() {
     return (
-      <Fragment>
-        <Header/>
-        <div style={styles.body}>
-          SEARCH
-        </div>
-        <Footer/>
-      </Fragment>
-      
+      <div style={styles.body}>
+        SEARCH
+      </div>
     )
   }
 }

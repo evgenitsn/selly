@@ -1,40 +1,32 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import firebase from 'firebase'
-import { Redirect } from 'react-router-dom'
 
 import RaisedButton from 'material-ui/RaisedButton'
 import Avatar from 'material-ui/Avatar'
 
-import {Header, Footer} from '../components'
-
 export default class Profile extends Component {
   logout = () => {
     firebase.logout().then(() => {
-      this.props.history.push('/login')
+      // this.props.history.push('/login')
     })
   }
 
   render() {
     return (
-      <Fragment>
-        <Header/>
-        <div style={styles.body}>
-          <div style={styles.profileHeaderContainer}>
-              <Avatar size={80} src={require("../assets/Avatar.png")} />
-          </div>
-          <div style={styles.container}>
-            <RaisedButton 
-              label="Log Out" 
-              backgroundColor="#9575CD"
-              labelColor="#fafafa"
-              style={styles.registerButton} 
-              onClick={() => this.logout()}
-            />
-          </div>
+      <div style={styles.body}>
+        <div style={styles.profileHeaderContainer}>
+            <Avatar size={80} src={require("../assets/Avatar.png")} />
         </div>
-        <Footer/>
-      </Fragment>
-      
+        <div style={styles.container}>
+          <RaisedButton 
+            label="Log Out" 
+            backgroundColor="#9575CD"
+            labelColor="#fafafa"
+            style={styles.registerButton} 
+            onClick={() => this.logout()}
+          />
+        </div>
+      </div>
     )
   }
 }

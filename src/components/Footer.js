@@ -12,7 +12,6 @@ import HomeIcon from 'material-ui/svg-icons/action/home'
 import AddIcon from 'material-ui/svg-icons/content/add-circle-outline'
 import ProfileIcon from 'material-ui/svg-icons/social/person'
 import SearchIcon from 'material-ui/svg-icons/action/search'
-import LoginIcon from 'material-ui/svg-icons/action/lock-open'
 
 class Footer extends Component {
   render() {
