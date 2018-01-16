@@ -8,18 +8,13 @@ import firebase from 'firebase'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 
-import {FormTextField} from '../components'
+import {FormTextField, Loading} from '../components'
 import validate from '../validate'
 
 class Login extends Component {
   login = ({email, password}) => {
-    let {auth, profile} = this.props.firebase
     firebase.login({email, password}).then(res => {
       this.props.reset()
-      if(auth.isLoaded) {
-        console.log('Success', auth)
-        console.log('Success', profile)
-      }
     }).catch(e => {
       if(e.code === "auth/user-not-found"){
         console.log('There is no user record corresponding to this identifier. The user may have been deleted.')
@@ -58,7 +53,7 @@ class Login extends Component {
     }
 
     if(!this.props.firebase.profile.isLoaded) {
-      return <div style={{margin: 100}}>Loading</div>
+      return <Loading/>
     }
     
     return (

@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import DatePicker from 'material-ui/DatePicker'
 
-import {FormTextField} from '../components'
+import {FormTextField, Loading} from '../components'
 import validate from '../validate'
 
 class Register extends Component {
@@ -37,7 +37,7 @@ class Register extends Component {
     }
 
     if(!this.props.firebase.profile.isLoaded) {
-      return <div style={{margin: 100}}>Loading</div>
+      return <Loading/>
     }
 
     return (
