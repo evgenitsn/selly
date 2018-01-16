@@ -47,13 +47,6 @@ class Footer extends Component {
             icon={<ProfileIcon/>}
             onClick={() => this.props.changeNavBarOption(3)}
           />
-          <BottomNavigationItem
-            style={styles.alignTextOfMenus}
-            containerElement={<Link to='/login'/>}
-            label="Login"
-            icon={<LoginIcon/>}
-            onClick={() => this.props.changeNavBarOption(4)}
-          />
         </BottomNavigation>
       </Paper>
     )
