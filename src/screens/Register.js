@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import {Field, reduxForm} from 'redux-form'
 import firebase from 'firebase'
 
@@ -18,9 +18,6 @@ class Register extends Component {
       { username, email }
     ).then(res => {
       this.props.reset()
-      if(this.props.auth.isLoaded) {
-        console.log('go to home')
-      }
     }).catch(e => {
       console.log('Auth Error: ', e)
     })
@@ -35,6 +32,14 @@ class Register extends Component {
 
   render() {
     const {pristine, submitting, valid} = this.props
+    if(!this.props.firebase.profile.isEmpty) {
+      return <Redirect to="/profile"/>
+    }
+
+    if(!this.props.firebase.profile.isLoaded) {
+      return <div style={{margin: 100}}>Loading</div>
+    }
+
     return (
       <div style={{...styles.flex, ...styles.body}}>
         <div style={{...styles.flex}}>  
@@ -93,8 +98,7 @@ class Register extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    auth: state.firebase.auth,
-    profile: state.firebase.profile,
+    firebase: state.firebase,
     formValues: state.form.Register.values
   }
 }
