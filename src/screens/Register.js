@@ -12,10 +12,10 @@ import {FormTextField, Loading} from '../components'
 import validate from '../validate'
 
 class Register extends Component {
-  createNewUser = ({ email, password, username }) => {
+  createNewUser = ({ email, password, fullname }) => {
     firebase.createUser(
       { email, password },
-      { username, email }
+      { displayName: fullname, email }
     ).then(res => {
       this.props.reset()
     }).catch(e => {
@@ -25,8 +25,8 @@ class Register extends Component {
 
   handleSubmit = (e) => {
     if(this.props.valid) {
-      const {username, email, password} = this.props.formValues
-      this.createNewUser({email, password, username})
+      const {fullname, email, password} = this.props.formValues
+      this.createNewUser({email, password, fullname})
     }
   }
 
@@ -41,9 +41,9 @@ class Register extends Component {
         <div style={{...styles.flex, marginTop: '1em'}}>
           <form style={{...styles.flex}}>
             <Field
-              name="username"
+              name="fullname"
               component={FormTextField}
-              floatingLabelText="Username"
+              floatingLabelText="Full Name"
               floatingLabelStyle={{color: '#fafafa'}}
             />
             <Field 
