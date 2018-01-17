@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import firebase from 'firebase'
 import { connect } from 'react-redux'
+import { changeNavBarOption } from '../components/Footer-duck'
 
 import RaisedButton from 'material-ui/RaisedButton'
 import Avatar from 'material-ui/Avatar'
@@ -9,6 +10,7 @@ import { Loading } from '../components';
 class Profile extends Component {
   logout = () => {
     firebase.logout()
+    this.props.changeNavBarOption(0)
   }
 
   render() {
@@ -44,11 +46,12 @@ class Profile extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    firebase: state.firebase
+    firebase: state.firebase,
+    footer: state.footerReducer
   }
 }
 
-export default connect(mapStateToProps, {})(Profile)
+export default connect(mapStateToProps, {changeNavBarOption})(Profile)
 
 const styles = {
   body: {
