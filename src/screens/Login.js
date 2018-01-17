@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form'
-import GoogleButton from 'react-google-button'
 import firebase from 'firebase'
 
 import RaisedButton from 'material-ui/RaisedButton'
@@ -81,8 +80,11 @@ class Login extends Component {
               disabled={!valid || pristine || submitting}
               onClick={(e) => this.handleSubmit(e)}
             />
-            <GoogleButton
-              style={{width: '30%'}}
+            <RaisedButton 
+              label="Google" 
+              backgroundColor="#9575CD"
+              labelColor="#fafafa"
+              style={styles.loginButton}
               onClick={() => this.googleLogin()}
             />
             <FlatButton 
