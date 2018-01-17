@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Link, Redirect } from 'react-router-dom'
-import {Field, reduxForm} from 'redux-form'
+import { Link } from 'react-router-dom'
+import { Field, reduxForm } from 'redux-form'
 import firebase from 'firebase'
 
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import DatePicker from 'material-ui/DatePicker'
 
-import {FormTextField, Loading} from '../components'
+import { FormTextField } from '../components'
 import validate from '../validate'
 
 class Register extends Component {
