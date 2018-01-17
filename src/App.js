@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import {Home, Create, Profile, Login, Register, Search} from './screens'
 import { Loading, Header, Footer } from './components'
-import {Route, Switch, Redirect} from 'react-router-dom'
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 
 class App extends Component {
   render() {
@@ -41,4 +41,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {})(App)
+export default withRouter(connect(mapStateToProps, {})(App))
