@@ -20,7 +20,10 @@ class Profile extends Component {
     return (
       <div style={styles.body}>
         <div style={styles.profileHeaderContainer}>
-          <Avatar size={80} src={require("../assets/Avatar.png")} />
+          {this.props.firebase.profile.avatarUrl ? 
+            <Avatar size={80} src={this.props.firebase.profile.avatarUrl} /> :
+            <Avatar size={80} src={require("../assets/Avatar.png")} />
+          }
           <div>
             <div>{this.props.firebase.profile.displayName}</div>
             <br/>
