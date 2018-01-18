@@ -35,6 +35,8 @@ export default Home
 
 const styles = {
   body: {
+    margin: '0 auto',
+    maxWidth: 500,
     marginTop: 80,
     marginBottom: 80
   }

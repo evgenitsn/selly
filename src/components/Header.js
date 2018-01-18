@@ -31,7 +31,7 @@ const styles = {
   headerContainer: {
     position: 'fixed',
     width: '100%',
-    height: '7%',
+    height: 52,
     top: 0,
     overflow: 'hidden',
   },

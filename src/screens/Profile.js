@@ -55,6 +55,8 @@ export default connect(mapStateToProps, {changeNavBarOption})(Profile)
 
 const styles = {
   body: {
+    margin: '0 auto',
+    maxWidth: 500,
     marginTop: 48,
     marginBottom: 80
   },

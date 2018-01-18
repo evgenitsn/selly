@@ -12,6 +12,8 @@ export default class Search extends Component {
 
 const styles = {
   body: {
+    margin: '0 auto',
+    maxWidth: 500,
     marginTop: 64,
     marginBottom: 80
   },

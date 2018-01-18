@@ -64,6 +64,8 @@ export default class Create extends Component {
 
 const styles = {
   body: {
+    margin: '0 auto',
+    maxWidth: 500,
     marginTop: 80,
     marginBottom: 80,
   },
