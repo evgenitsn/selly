@@ -1,11 +1,34 @@
 import React, { Component } from 'react'
+import {compose} from 'redux'
+import {connect} from 'react-redux'
+import {firebaseConnect, isLoaded, isEmpty} from 'react-redux-firebase'
+import RaisedButton from 'material-ui/RaisedButton'
+import {Card, CardHeader, CardMedia, CardText} from 'material-ui/Card';
+import firebase from 'firebase'
 import {Post} from '../components'
+import Loading from '../components/Loading';
 
 class Home extends Component {
+  pushSample = () => firebase.push('ads', { price: 300, title: 'Kindle' })
+  
   render() {
+    const ads = this.props.ads
+    const adsList = !isLoaded(ads)
+    ? <Loading/>
+    : isEmpty(ads)
+      ? 'Todo list is empty'
+      : Object.keys(ads).map(
+          (key, id) => (
+            <Card key={key} id={id}>
+              <CardHeader title={ads[key]['title']} />
+              <CardText>{ads[key]['price']}</CardText>
+            </Card>
+          )
+        )
     return (
       <div style={styles.body}>
-        <Post 
+        {adsList}
+        {/* <Post 
           username='Username' 
           date='Now' 
           avatar={require('../assets/Avatar.png')}
@@ -25,13 +48,26 @@ class Home extends Component {
           avatar={require('../assets/Avatar.png')}
           image={require('../assets/Plovdiv.jpg')}
           description='This is Plovdiv.'
-        />
+        />*/}
+        <RaisedButton 
+          label="Add" 
+          backgroundColor="#9575CD"
+          labelColor="#fafafa"
+          onClick={() => this.pushSample()}
+        /> 
       </div>
     )
   }
 }
 
-export default Home
+export default compose(
+  firebaseConnect(props => [
+    { path: 'ads' }
+  ]),
+  connect((state, props) => ({
+    ads: state.firebase.data.ads,
+  }))
+)(Home)
 
 const styles = {
   body: {
