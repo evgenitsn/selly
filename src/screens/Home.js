@@ -49,7 +49,8 @@ class Home extends Component {
           image={require('../assets/Plovdiv.jpg')}
           description='This is Plovdiv.'
         />*/}
-        <RaisedButton 
+        <RaisedButton
+          style={{margin: 20, alignSelf: 'center'}}
           label="Add" 
           backgroundColor="#9575CD"
           labelColor="#fafafa"
@@ -73,7 +74,10 @@ const styles = {
   body: {
     margin: '0 auto',
     maxWidth: 500,
+    margin: 20,
     marginTop: 80,
-    marginBottom: 80
+    marginBottom: 80,
+    display: 'flex',
+    flexDirection: 'column'
   }
 }
