@@ -4,13 +4,10 @@ import {connect} from 'react-redux'
 import {firebaseConnect, isLoaded, isEmpty} from 'react-redux-firebase'
 import RaisedButton from 'material-ui/RaisedButton'
 import {Card, CardHeader, CardMedia, CardText} from 'material-ui/Card';
-import firebase from 'firebase'
 import {Post} from '../components'
 import Loading from '../components/Loading';
 
 class Home extends Component {
-  pushSample = () => firebase.push('ads', { price: 300, title: 'Kindle' })
-  
   render() {
     const ads = this.props.ads
     const adsList = !isLoaded(ads)
@@ -54,7 +51,6 @@ class Home extends Component {
           label="Add" 
           backgroundColor="#9575CD"
           labelColor="#fafafa"
-          onClick={() => this.pushSample()}
         /> 
       </div>
     )
