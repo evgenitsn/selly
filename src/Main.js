@@ -25,7 +25,7 @@ const firebaseConfig = {
     authDomain: "selly-2c78f.firebaseapp.com",
     databaseURL: "https://selly-2c78f.firebaseio.com",
     projectId: "selly-2c78f",
-    storageBucket: "",
+    storageBucket: "selly-2c78f.appspot.com",
     messagingSenderId: "181748382649"
 }
 
