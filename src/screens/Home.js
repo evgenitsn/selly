@@ -74,7 +74,6 @@ const styles = {
   body: {
     margin: '0 auto',
     maxWidth: 500,
-    margin: 20,
     marginTop: 80,
     marginBottom: 80,
     display: 'flex',
