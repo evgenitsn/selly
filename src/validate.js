@@ -5,7 +5,16 @@ export default function(values) {
     'email',
     'password',
     'repeatPassword',
+    'title',
+    'category',
+    'description',
+    'price',
+    'itemCondition',
+    'location',
+    'contactName',
+    'phone'
   ];
+  
   requiredFields.forEach(field => {
     if (!values[field]) {
       errors[field] = 'Required';
