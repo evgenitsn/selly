@@ -7,15 +7,27 @@ import firebase from 'firebase'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 
-import {FormTextField} from '../components'
+import {FormTextField, Snackbar} from '../components'
 import validate from '../validate'
 
 class Login extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      message: ''
+    };
+  }
   //SHOW TOAST WITH MSG
   login = ({email, password}) => {
     firebase.login({email, password})
       .then(res => this.props.reset())
       .catch(e => {
+        this.setState({
+          open: true,
+          message: e.code
+        })
         if(e.code === "auth/user-not-found"){
           console.log('There is no user record corresponding to this identifier. The user may have been deleted.')
         } else {
@@ -28,6 +40,10 @@ class Login extends Component {
     firebase.login({ provider: 'google', type: 'popup' })
       .then()
       .catch(e => {
+        this.setState({
+          open: true,
+          message: e.code
+        })
         if(e.code === "auth/user-not-found"){
           console.log('There is no user record corresponding to this identifier. The user may have been deleted.')
         } else {
@@ -53,7 +69,6 @@ class Login extends Component {
           <p style={styles.slogan}>Insert some kind of slogan here.</p>
         </div>
         <div style={{...styles.flex, marginTop: '6em'}}>
-        {this.props.firebase.authError ? <div>{this.props.firebase.authError.code}</div>: null}
           <form style={{...styles.flex}}>
             <Field
               name="email"
@@ -94,6 +109,11 @@ class Login extends Component {
             />
           </form>
         </div>
+        <Snackbar 
+          open={this.state.open}
+          message={this.state.message}
+          onActionClick={() => this.setState({open: false})}
+        />
       </div>
     )
   }

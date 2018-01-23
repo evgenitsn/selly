@@ -8,10 +8,18 @@ import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import DatePicker from 'material-ui/DatePicker'
 
-import { FormTextField } from '../components'
+import { FormTextField, Snackbar } from '../components'
 import validate from '../validate'
 
 class Register extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      message: ''
+    }
+  }
+
   createNewUser = ({ email, password, fullname }) => {
     firebase.createUser(
       { email, password },
@@ -19,6 +27,10 @@ class Register extends Component {
     ).then(res => {
       this.props.reset()
     }).catch(e => {
+      this.setState({
+        open: true,
+        message: e.code
+      })
       console.log('Auth Error: ', e)
     })
   }
@@ -83,6 +95,11 @@ class Register extends Component {
             label="Go to Login"
           />
         </div>
+        <Snackbar 
+          open={this.state.open}
+          message={this.state.message}
+          onActionClick={() => this.setState({open: false})}
+        />
       </div>
     )
   }
