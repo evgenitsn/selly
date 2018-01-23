@@ -2,13 +2,18 @@ import React, { Component } from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import firebase from 'firebase'
+import { Field, reduxForm } from 'redux-form'
 import { firebaseConnect } from 'react-redux-firebase'
 
 import TextField from 'material-ui/TextField'
-import SelectField from 'material-ui/SelectField'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import MenuItem from 'material-ui/MenuItem'
+import { RadioButton } from 'material-ui/RadioButton'
+
+import { FormTextField, FormSelectField, FormRadioGroup } from '../components'
+
+import validate from '../validate'
 import { green500 } from 'material-ui/styles/colors'
 
 class Create extends Component {
@@ -44,58 +49,86 @@ class Create extends Component {
   handleChange = (event, index, value) => this.setState({value});
   // Add Stepper for the ad
   render() {
+    const {pristine, submitting, valid} = this.props
     return (
-      <div style={{...styles.body, ...styles.flex}}>
-        <h4>Details</h4>
-        <div style={styles.flex}>
-          <TextField
-            floatingLabelText="Title"
-          />
-          <SelectField
-            floatingLabelText="Category"
-            value={this.state.value}
-            onChange={this.handleChange}
+      <div>
+        <form style={{...styles.body, ...styles.flex}}>
+          <h4>Details</h4>
+          <div style={styles.flex}>
+            <Field
+              name="title"
+              component={FormTextField}
+              floatingLabelText="Title"
+            />
+            <Field
+              name="category"
+              floatingLabelText="Category"
+              label="Category"
+              value={this.state.value}
+              component={FormSelectField}
+              onChange={this.handleChange}
+            >
+              <MenuItem value={'Cat1'} primaryText="Cat1" />
+              <MenuItem value={'Cat2'} primaryText="Cat2" />
+              <MenuItem value={'Cat3'} primaryText="Cat3" />
+              <MenuItem value={'Cat4'} primaryText="Cat4" />
+            </Field>
+            <Field
+              name="description"
+              component={FormTextField}
+              floatingLabelText="Description"
+              multiLine={true}
+              rows={3}
+            />
+            <Field
+              name="price"
+              component={FormTextField}
+              floatingLabelText="Price"
+              type="number"
+            />
+            <Field name="itemCondition" component={FormRadioGroup}>
+              <RadioButton value="new" label="New"/>
+              <RadioButton value="used" label="Used"/>
+            </Field>
+            <br/>
+          </div>
+          
+          <div style={styles.flex}>
+            <h4>Contacts</h4>
+            <Field
+              name="location"
+              component={FormTextField}
+              floatingLabelText="Location"
+            />
+            <Field
+              name="contactName"
+              component={FormTextField}
+              floatingLabelText="Contact Name"
+            />
+            <Field
+              name="phone"
+              component={FormTextField}
+              floatingLabelText="Phone"
+            />
+          </div>
+          <FlatButton
+            label="Choose an Image"
+            labelPosition="before"
+            style={styles.uploadButton}
+            containerElement="label"
           >
-            <MenuItem value={'Cat1'} primaryText="Cat1" />
-            <MenuItem value={'Cat2'} primaryText="Cat2" />
-            <MenuItem value={'Cat3'} primaryText="Cat3" />
-            <MenuItem value={'Cat4'} primaryText="Cat4" />
-          </SelectField>
-          <TextField
-            floatingLabelText="Description"
-            multiLine={true}
-            rows={3}
+            <input type="file" style={styles.uploadInput} onChange={(e) => this.uploadFile(e)} />
+          </FlatButton>
+          <RaisedButton
+            onClick={() => this.pushSample()}
+            label="Create" 
+            disabled={!valid || pristine || submitting}
+            disabledBackgroundColor = "lightgrey"
+            disabledLabelColor = "white"
+            backgroundColor={green500}
+            labelColor="#fafafa"
           />
-        </div>
-        <div style={styles.flex}>
-          <h4>Contacts</h4>
-          <TextField
-            floatingLabelText="Location"
-          />
-          <TextField
-            floatingLabelText="Contact Name"
-          />
-          <TextField
-            floatingLabelText="Email"
-          />
-          <TextField
-            floatingLabelText="Phone"
-          />
-        </div>
-        <FlatButton
-          label="Choose an Image"
-          labelPosition="before"
-          style={styles.uploadButton}
-          containerElement="label"
-        >
-          <input type="file" style={styles.uploadInput} onChange={(e) => this.uploadFile(e)} />
-        </FlatButton>
-        <RaisedButton
-          onClick={() => this.pushSample()}
-          label="Create" 
-          backgroundColor={green500}
-          labelColor="#fafafa"
-        />
+        </form>
       </div>
     )
   }
@@ -103,11 +136,13 @@ class Create extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    firebase: state.firebase
+    firebase: state.firebase,
+    formValues: state.form.Create.values
   }
 }
 
-export default compose(firebaseConnect(['uploadedFiles']), connect(mapStateToProps, {}))(Create)
+Create = compose(firebaseConnect(['uploadedFiles']), connect(mapStateToProps, {}))(Create)
+export default reduxForm({form: 'Create', validate})(Create)
 
 const styles = {
   body: {
