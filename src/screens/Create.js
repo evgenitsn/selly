@@ -22,23 +22,16 @@ class Create extends Component {
   };
 
   pushSample = () => {
-    const adObj = {
-      title: 'Galaxy S8',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus non lacus fermentum lectus placerat pulvinar sed a ante. Duis quis leo ipsum. Morbi in neque urna. Donec consectetur arcu quis sem malesuada, vestibulum posuere odio semper. Aenean in risus quis enim interdum venenatis at nec nibh. Nam lacinia scelerisque nulla nec pretium. Duis sit amet lorem eget tortor cursus mollis ultricies in nulla. Curabitur luctus dui ut elementum sagittis. Donec mi nunc, ultrices vel convallis ut, fringilla aliquet magna. Nulla facilisi. In sagittis tempus pharetra. In quis ligula rhoncus, rutrum mauris eget, tincidunt orci. Morbi consequat dui vel mauris faucibus, ac aliquet eros commodo.',
-      price: 600,
-      category: 'Mobile Phones',
-      condition: 'new',
-      location: 'Sofia',
-      contactName: 'Evgeni',
-      contactPhone: '0889232323',
-      user: {
-        uid: this.props.firebase.auth.uid,
-        email: this.props.firebase.auth.email,
-        displayName: this.props.firebase.auth.displayName,
-      }
+    const user = {
+      uid: this.props.firebase.auth.uid,
+      email: this.props.firebase.auth.email,
+      displayName: this.props.firebase.auth.displayName,
     }
+    let data = {...this.props.formValues, user}
 
-    firebase.push('ads', adObj)
+    firebase.push('ads', data).then(res => {
+      this.props.reset()
+    })
   }
 
   uploadFile = (e) => {
@@ -106,7 +99,7 @@ class Create extends Component {
               floatingLabelText="Contact Name"
             />
             <Field
-              name="phone"
+              name="contactPhone"
               component={FormTextField}
               floatingLabelText="Phone"
             />

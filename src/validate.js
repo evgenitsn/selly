@@ -12,7 +12,7 @@ export default function(values) {
     'itemCondition',
     'location',
     'contactName',
-    'phone'
+    'conatctPhone'
   ];
   
   requiredFields.forEach(field => {
