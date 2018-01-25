@@ -36,7 +36,7 @@ const styles = {
     overflow: 'hidden',
   },
   titleStyle: {
-    fontFamily: 'Pacifico',
+    fontFamily: 'Oxygen',
     textAlign: 'center',
     lineHeight: '46px'
   }

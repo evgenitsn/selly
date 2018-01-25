@@ -63,13 +63,12 @@ class Login extends Component {
     const {pristine, submitting, valid} = this.props
     return (
       <div style={{...styles.flex, ...styles.body}}>
-        <div style={{...styles.flex}}>  
-          <h2 style={styles.welcomeMsg}>Welcome to</h2>
-          <h1 style={styles.title}>Selly</h1>
-          <p style={styles.slogan}>Insert some kind of slogan here.</p>
+        <div style={{...styles.flex}}>
+          <h1 style={styles.title}>selly</h1>
         </div>
         <div style={{...styles.flex, marginTop: '6em'}}>
-          <form style={{...styles.flex}}>
+          <div style={styles.loginLabel}>login</div>
+          <form style={{...styles.flex, ...styles.form}}>
             <Field
               name="email"
               component={FormTextField}
@@ -85,29 +84,30 @@ class Login extends Component {
               floatingLabelStyle={{color: '#fafafa'}}
               inputStyle={{color: 'white'}}
             />
-            <RaisedButton 
-              label="Login" 
-              backgroundColor="#9575CD"
-              labelColor="#fafafa"
-              style={styles.loginButton} 
-              disabledBackgroundColor = "lightgrey"
-              disabledLabelColor = "white"
-              disabled={!valid || pristine || submitting}
-              onClick={(e) => this.handleSubmit(e)}
-            />
-            <RaisedButton 
-              label="Google" 
-              backgroundColor="#9575CD"
-              labelColor="#fafafa"
-              style={styles.loginButton}
-              onClick={() => this.googleLogin()}
-            />
-            <FlatButton 
-              containerElement={<Link to='/register'/>}
-              labelStyle={{color:"#fafafa"}}
-              label="Join us"
-            />
           </form>
+          
+          <RaisedButton 
+            label="Login" 
+            backgroundColor="#9575CD"
+            labelColor="#fafafa"
+            style={styles.loginButton} 
+            disabledBackgroundColor = "lightgrey"
+            disabledLabelColor = "white"
+            disabled={!valid || pristine || submitting}
+            onClick={(e) => this.handleSubmit(e)}
+          />
+          <RaisedButton 
+            label="Google" 
+            backgroundColor="#9575CD"
+            labelColor="#fafafa"
+            style={styles.loginButton}
+            onClick={() => this.googleLogin()}
+          />
+        <FlatButton 
+          containerElement={<Link to='/register'/>}
+          labelStyle={{color:"#fafafa"}}
+          label="Join us"
+        />
         </div>
         <Snackbar 
           open={this.state.open}
@@ -139,12 +139,12 @@ const styles = {
   body: {
     alignItems: 'space-around',
     height: '100vh',
-    backgroundImage: 'linear-gradient(135deg, #9890e3 0%, #b1f4cf 100%)'
+    backgroundImage: 'linear-gradient(180deg, #6BE3CE 0%, #0277A3 100%)'
   },
   loginButton: {
     margin: 12, 
     width: 60,
-    marginTop: 30,
+    marginTop: 10,
   },
   welcomeMsg: {
     fontSize: '1.5em', 
@@ -152,12 +152,24 @@ const styles = {
     color: '#fafafa'
   },
   title: {
-   fontFamily: 'Pacifico',
-   color: '#555',
+   fontFamily: 'Oxygen',
+   color: '#E3FFFD',
    fontSize: '4em'
   },
   slogan: {
     marginTop: '2.5em',
     color: '#fafafa'
+  },
+  loginLabel: {
+    fontFamily: 'Oxygen',
+    width: '75%',
+    marginBottom: 20,
+    fontSize: '1.8em',
+    color: '#E3FFFD',
+  },
+  form: {
+    backgroundColor: 'rgba(227, 255, 253, 0.50)',
+    padding: '5%',
+    borderRadius: 5
   }
 }

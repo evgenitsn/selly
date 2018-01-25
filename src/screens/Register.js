@@ -125,7 +125,7 @@ const styles = {
   body: {
     alignItems: 'space-around',
     height: '100vh',
-    backgroundImage: 'linear-gradient(135deg, #9890e3 0%, #b1f4cf 100%)'
+    backgroundImage: 'linear-gradient(180deg, #6BE3CE 0%, #0277A3 100%)'
   },
   registerButton: {
     margin: 12, 
@@ -137,7 +137,7 @@ const styles = {
     color: '#fafafa'
   },
   title: {
-   fontFamily: 'Pacifico',
+   fontFamily: 'Oxygen',
    color: '#555',
    fontSize: '4em'
   },
