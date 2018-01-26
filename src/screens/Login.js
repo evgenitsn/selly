@@ -9,6 +9,7 @@ import FlatButton from 'material-ui/FlatButton'
 
 import {FormTextField, Snackbar} from '../components'
 import validate from '../validate'
+import Background from '../assets/pattern.png'
 
 class Login extends Component {
 
@@ -67,22 +68,22 @@ class Login extends Component {
           <h1 style={styles.title}>selly</h1>
         </div>
         <div style={{...styles.flex, marginTop: '6em'}}>
+        <form style={{...styles.flex, ...styles.form}}>
           <div style={styles.loginLabel}>login</div>
-          <form style={{...styles.flex, ...styles.form}}>
             <Field
               name="email"
               component={FormTextField}
-              floatingLabelText="Email"
-              floatingLabelStyle={{color: '#fafafa'}}
-              inputStyle={{color: 'white'}}
+              floatingLabelText="email"
+              inputStyle={styles.inputStyle}
+              floatingLabelStyle={styles.inputStyle}
             />
             <Field
               name="password"
               type="password"
               component={FormTextField}
-              floatingLabelText="Password"
-              floatingLabelStyle={{color: '#fafafa'}}
-              inputStyle={{color: 'white'}}
+              floatingLabelText="password"
+              inputStyle={styles.inputStyle}
+              floatingLabelStyle={styles.inputStyle}
             />
           </form>
           
@@ -139,7 +140,7 @@ const styles = {
   body: {
     alignItems: 'space-around',
     height: '100vh',
-    backgroundImage: 'linear-gradient(180deg, #6BE3CE 0%, #0277A3 100%)'
+    backgroundImage: `url(${Background}), linear-gradient(180deg, #6BE3CE 0%, #0277A3 100%)`
   },
   loginButton: {
     margin: 12, 
@@ -162,14 +163,15 @@ const styles = {
   },
   loginLabel: {
     fontFamily: 'Oxygen',
-    width: '75%',
     marginBottom: 20,
     fontSize: '1.8em',
     color: '#E3FFFD',
   },
   form: {
-    backgroundColor: 'rgba(227, 255, 253, 0.50)',
     padding: '5%',
     borderRadius: 5
+  },
+  inputStyle: {
+    color: 'white', fontFamily: 'Oxygen'
   }
 }
