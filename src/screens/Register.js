@@ -46,37 +46,41 @@ class Register extends Component {
     const {pristine, submitting, valid} = this.props
     return (
       <div style={{...styles.flex, ...styles.body}}>
-        <div style={{...styles.flex}}>  
-          <h2 style={styles.welcomeMsg}>Register to</h2>
-          <h1 style={styles.title}>Selly</h1>
+        <div style={{...styles.flex}}>
+          <h1 style={styles.title}>selly</h1>
         </div>
-        <div style={{...styles.flex, marginTop: '1em'}}>
+        <div style={{...styles.flex, marginTop: '6em'}}>
           <form style={{...styles.flex}}>
+          <div style={styles.registerLabel}>register</div>
             <Field
               name="fullname"
               component={FormTextField}
-              floatingLabelText="Full Name"
-              floatingLabelStyle={{color: '#fafafa'}}
+              floatingLabelText="full name"
+              inputStyle={styles.inputStyle}
+              floatingLabelStyle={styles.inputStyle}
             />
             <Field 
               name="email" 
               component={FormTextField} 
-              floatingLabelText="Email"
-              floatingLabelStyle={{color: '#fafafa'}}
+              floatingLabelText="email"
+              inputStyle={styles.inputStyle}
+              floatingLabelStyle={styles.inputStyle}
             />
             <Field
               name="password"
               type="password"
               component={FormTextField}
-              floatingLabelText="Password"
-              floatingLabelStyle={{color: '#fafafa'}}
+              floatingLabelText="password"
+              inputStyle={styles.inputStyle}
+              floatingLabelStyle={styles.inputStyle}
             />
             <Field
               name="repeatPassword"
               type="password"
               component={FormTextField}
-              floatingLabelText="Repeat Password"
-              floatingLabelStyle={{color: '#fafafa'}}
+              floatingLabelText="repeat password"
+              inputStyle={styles.inputStyle}
+              floatingLabelStyle={styles.inputStyle}
             />
             <RaisedButton 
               label="Register" 
@@ -131,18 +135,22 @@ const styles = {
     margin: 12, 
     marginTop: 30,
   },
-  welcomeMsg: {
-    fontSize: '1.5em', 
-    marginBottom: '0.9em', 
-    color: '#fafafa'
+  registerLabel: {
+    fontFamily: 'Oxygen',
+    marginBottom: 20,
+    fontSize: '1.8em',
+    color: '#E3FFFD',
   },
   title: {
-   fontFamily: 'Oxygen',
-   color: '#555',
-   fontSize: '4em'
+    fontFamily: 'Oxygen',
+    color: '#E3FFFD',
+    fontSize: '4em'
   },
   slogan: {
     marginTop: '2.5em',
     color: '#fafafa'
+  },
+  inputStyle: {
+    color: 'white', fontFamily: 'Oxygen'
   }
 }
