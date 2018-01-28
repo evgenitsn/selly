@@ -10,6 +10,7 @@ import DatePicker from 'material-ui/DatePicker'
 
 import { FormTextField, Snackbar } from '../components'
 import validate from '../validate'
+import Background from '../assets/pattern.png'
 
 class Register extends Component {
   constructor(props) {
@@ -45,17 +46,18 @@ class Register extends Component {
   render() {
     const {pristine, submitting, valid} = this.props
     return (
-      <div style={{...styles.flex, ...styles.body}}>
+      <div style={{...styles.flex, ...styles.body, justifyContent: 'space-evenly'}}>
         <div style={{...styles.flex}}>
           <h1 style={styles.title}>selly</h1>
         </div>
-        <div style={{...styles.flex, marginTop: '6em'}}>
+        <div style={{...styles.flex}}>
           <form style={{...styles.flex}}>
           <div style={styles.registerLabel}>register</div>
             <Field
               name="fullname"
               component={FormTextField}
               floatingLabelText="full name"
+              errorStyle={{fontFamily: 'Oxygen', textTransform: 'lowercase'}}
               inputStyle={styles.inputStyle}
               floatingLabelStyle={styles.inputStyle}
             />
@@ -63,6 +65,7 @@ class Register extends Component {
               name="email" 
               component={FormTextField} 
               floatingLabelText="email"
+              errorStyle={{fontFamily: 'Oxygen', textTransform: 'lowercase'}}
               inputStyle={styles.inputStyle}
               floatingLabelStyle={styles.inputStyle}
             />
@@ -71,6 +74,7 @@ class Register extends Component {
               type="password"
               component={FormTextField}
               floatingLabelText="password"
+              errorStyle={{fontFamily: 'Oxygen', textTransform: 'lowercase'}}
               inputStyle={styles.inputStyle}
               floatingLabelStyle={styles.inputStyle}
             />
@@ -79,14 +83,17 @@ class Register extends Component {
               type="password"
               component={FormTextField}
               floatingLabelText="repeat password"
+              errorStyle={{fontFamily: 'Oxygen', textTransform: 'lowercase'}}
               inputStyle={styles.inputStyle}
               floatingLabelStyle={styles.inputStyle}
             />
             <RaisedButton 
-              label="Register" 
-              backgroundColor="#9575CD"
-              labelColor="#fafafa"
-              style={styles.registerButton} 
+              label="Register"
+              backgroundColor="#e3fffd"
+              labelColor="#0a0a0a"
+              style={{...styles.registerButton, borderRadius: 25}}
+              buttonStyle={{ borderRadius: 25 }}
+              labelStyle={{fontFamily: 'Oxygen', textTransform: 'lowercase'}}
               disabledBackgroundColor = "lightgrey"
               disabledLabelColor = "white"
               disabled={!valid || pristine || submitting}
@@ -95,7 +102,7 @@ class Register extends Component {
           </form>
           <FlatButton 
             containerElement={<Link to='/login'/>}
-            labelStyle={{color:"#fafafa"}}
+            labelStyle={{ color: '#fafafa', fontFamily: 'Oxygen', textTransform: 'lowercase'}}
             label="Go to Login"
           />
         </div>
@@ -129,7 +136,7 @@ const styles = {
   body: {
     alignItems: 'space-around',
     height: '100vh',
-    backgroundImage: 'linear-gradient(180deg, #6BE3CE 0%, #0277A3 100%)'
+    backgroundImage: `url(${Background}), linear-gradient(180deg, #6BE3CE 0%, #0277A3 100%)`
   },
   registerButton: {
     margin: 12, 

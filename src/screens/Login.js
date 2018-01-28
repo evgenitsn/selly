@@ -63,35 +63,39 @@ class Login extends Component {
   render() {
     const {pristine, submitting, valid} = this.props
     return (
-      <div style={{...styles.flex, ...styles.body}}>
+      <div style={{...styles.flex, ...styles.body, justifyContent: 'space-evenly'}}>
         <div style={{...styles.flex}}>
           <h1 style={styles.title}>selly</h1>
         </div>
-        <div style={{...styles.flex, marginTop: '6em'}}>
+        <div style={{...styles.flex}}>
         <form style={{...styles.flex, ...styles.form}}>
           <div style={styles.loginLabel}>login</div>
-            <Field
-              name="email"
-              component={FormTextField}
-              floatingLabelText="email"
-              inputStyle={styles.inputStyle}
-              floatingLabelStyle={styles.inputStyle}
-            />
-            <Field
-              name="password"
-              type="password"
-              component={FormTextField}
-              floatingLabelText="password"
-              inputStyle={styles.inputStyle}
-              floatingLabelStyle={styles.inputStyle}
-            />
-          </form>
-          
+          <Field
+            name="email"
+            component={FormTextField}
+            floatingLabelText="email"
+            errorStyle={{fontFamily: 'Oxygen', textTransform: 'lowercase'}}
+            inputStyle={styles.inputStyle}
+            floatingLabelStyle={styles.inputStyle}
+          />
+          <Field
+            name="password"
+            type="password"
+            component={FormTextField}
+            floatingLabelText="password"
+            errorStyle={{fontFamily: 'Oxygen', textTransform: 'lowercase'}}
+            inputStyle={styles.inputStyle}
+            floatingLabelStyle={styles.inputStyle}
+          />
+        </form>
+        <div style={styles.buttonsContainer}>
           <RaisedButton 
             label="Login" 
-            backgroundColor="#9575CD"
-            labelColor="#fafafa"
-            style={styles.loginButton} 
+            backgroundColor="#e3fffd"
+            labelColor="#0a0a0a"
+            style={{...styles.loginButton, borderRadius: 25}}
+            labelStyle={{fontFamily: 'Oxygen', textTransform: 'lowercase'}}
+            buttonStyle={{ borderRadius: 25 }}
             disabledBackgroundColor = "lightgrey"
             disabledLabelColor = "white"
             disabled={!valid || pristine || submitting}
@@ -99,14 +103,17 @@ class Login extends Component {
           />
           <RaisedButton 
             label="Google" 
-            backgroundColor="#9575CD"
+            backgroundColor="#df4a32"
             labelColor="#fafafa"
-            style={styles.loginButton}
+            style={{...styles.loginButton, borderRadius: 25}} 
+            labelStyle={{fontFamily: 'Oxygen', textTransform: 'lowercase'}}
+            buttonStyle={{ borderRadius: 25 }}
             onClick={() => this.googleLogin()}
           />
+        </div>
         <FlatButton 
           containerElement={<Link to='/register'/>}
-          labelStyle={{color:"#fafafa"}}
+          labelStyle={{ color: '#fafafa', fontFamily: 'Oxygen', textTransform: 'lowercase'}}
           label="Join us"
         />
         </div>
@@ -173,5 +180,8 @@ const styles = {
   },
   inputStyle: {
     color: 'white', fontFamily: 'Oxygen'
+  },
+  buttonsContainer: {
+    display: 'flex'
   }
 }
