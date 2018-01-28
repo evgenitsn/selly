@@ -5,7 +5,7 @@ import { changeNavBarOption } from '../components/Footer-duck'
 
 import RaisedButton from 'material-ui/RaisedButton'
 import Avatar from 'material-ui/Avatar'
-import { Loading } from '../components';
+import { Loading } from '../components'
 
 class Profile extends Component {
   logout = () => {
@@ -44,8 +44,8 @@ class Profile extends Component {
         </div>
       </div>
     )
+    }
   }
-}
 
 const mapStateToProps = (state) => {
   return {
@@ -71,7 +71,7 @@ const styles = {
   profileHeaderContainer: {
       padding: 20,
       height: '15vh',
-      backgroundColor: 'lightgrey',
+      backgroundColor: '#6be3ce',
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center'

@@ -16,7 +16,7 @@ export default class Header extends Component {
   render() {
     return (
       <AppBar
-        title="Selly"
+        title="selly"
         onRightIconButtonClick={this.handleClick}
         iconElementLeft={menuIcon}
         showMenuIconButton={false}
@@ -34,6 +34,7 @@ const styles = {
     height: 52,
     top: 0,
     overflow: 'hidden',
+    backgroundColor: '#fafafa'
   },
   titleStyle: {
     fontFamily: 'Oxygen',
