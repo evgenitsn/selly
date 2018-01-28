@@ -29,8 +29,11 @@ function initialNavBarSelectedItem() {
     case '/create':
       index = 2
       break
-    case '/profile':
+    case '/saved':
       index = 3
+      break
+    case '/profile':
+      index = 4
       break
     default:
       index = 0

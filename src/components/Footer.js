@@ -52,7 +52,7 @@ class Footer extends Component {
             containerElement={<Link to='/profile'/>}
             label="Profile"
             icon={<ProfileIcon/>}
-            onClick={() => this.props.changeNavBarOption(3)}
+            onClick={() => this.props.changeNavBarOption(4)}
           />
         </BottomNavigation>
       </Paper>
