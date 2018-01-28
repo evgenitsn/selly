@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
+import { Loading } from '../components'
 
 export default class Saved extends Component {
   render() {
-    return (
-      <div style={styles.body}>
-        Saved
-      </div>
-    )
+    return <Loading />
   }
 }
 
