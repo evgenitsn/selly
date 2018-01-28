@@ -11,6 +11,7 @@ import {Link} from 'react-router-dom'
 import HomeIcon from 'material-ui/svg-icons/action/home'
 import AddIcon from 'material-ui/svg-icons/content/add-circle-outline'
 import ProfileIcon from 'material-ui/svg-icons/social/person'
+import StarIcon from 'material-ui/svg-icons/toggle/star'
 import SearchIcon from 'material-ui/svg-icons/action/search'
 
 class Footer extends Component {
@@ -38,6 +39,13 @@ class Footer extends Component {
             label="Create"
             icon={<AddIcon/>}
             onClick={() => this.props.changeNavBarOption(2)}
+          />
+          <BottomNavigationItem
+            style={styles.alignTextOfMenus}
+            containerElement={<Link to='/saved'/>}
+            label="Saved"
+            icon={<StarIcon/>}
+            onClick={() => this.props.changeNavBarOption(3)}
           />
           <BottomNavigationItem
             style={styles.alignTextOfMenus}

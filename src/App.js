@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import {Home, Create, Profile, Login, Register, Search} from './screens'
+import { Home, Create, Profile, Login, Register, Search, Saved } from './screens'
 import { Loading, Header, Footer } from './components'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 
@@ -21,9 +21,10 @@ class App extends Component {
           <Header/>
           <Switch>
             <Route path="/" exact component={Home}/>
-            <Route path="/create" exact component={Create}/>
-            <Route path="/profile" exact component={Profile}/>
             <Route path="/search" exact component={Search}/>
+            <Route path="/create" exact component={Create}/>
+            <Route path="/saved" exact component={Saved}/>
+            <Route path="/profile" exact component={Profile}/>
             <Redirect to="/"/>
           </Switch>
           <Footer/>

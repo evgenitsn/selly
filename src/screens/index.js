@@ -3,6 +3,7 @@ import Create from './Create'
 import Profile from './Profile'
 import Login from './Login'
 import Register from './Register'
+import Saved from './Saved'
 import Search from './Search'
 
 export {
@@ -11,5 +12,6 @@ export {
     Profile,
     Login,
     Register,
+    Saved,
     Search
 }
