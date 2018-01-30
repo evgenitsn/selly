@@ -27,8 +27,8 @@ class Create extends Component {
       email: this.props.firebase.auth.email,
       displayName: this.props.firebase.auth.displayName,
     }
-    let data = {...this.props.formValues, user}
-
+    let data = {...this.props.formValues, user, createdOn: firebase.database.ServerValue.TIMESTAMP}
+    
     firebase.push('ads', data).then(res => {
       this.props.reset()
     })
