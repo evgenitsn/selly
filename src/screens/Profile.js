@@ -59,10 +59,12 @@ export default connect(mapStateToProps, {changeNavBarOption})(Profile)
 
 const styles = {
   body: {
+    backgroundColor: '#6be3ce',
+    height: '100vh',
     margin: '0 auto',
     maxWidth: 500,
-    marginTop: 48,
-    marginBottom: 80
+    paddingTop: 48,
+    paddingBottom: 80
   },
   container: {
     display: 'flex',
@@ -70,12 +72,11 @@ const styles = {
     alignItems: 'center'
   },
   profileHeaderContainer: {
-      padding: 20,
-      height: '15vh',
-      backgroundColor: '#6be3ce',
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center'
+    padding: 20,
+    backgroundColor: '#6be3ce',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   registerButton: {
     margin: 12,
