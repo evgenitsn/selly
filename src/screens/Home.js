@@ -15,7 +15,10 @@ class Home extends Component {
       : Object.keys(ads).map(
           (key, id) => (
             <Card key={key} id={id} style={styles.card}>
-              <CardHeader title={ads[key]['title']} />
+              <CardHeader 
+              title={ads[key]['title']}
+              subtitle={ads[key]['category']}
+              />
               <CardText>{ads[key]['price']}</CardText>
             </Card>
           )
@@ -43,11 +46,12 @@ export default compose(
 const styles = {
   body: {
     backgroundColor: '#6BE3CE',
+    overflow: 'auto',
     height: '100vh',
     margin: '0 auto',
     maxWidth: 500,
     paddingTop: 80,
-    paddingBottom: 80,
+    paddingBottom: 150,
     display: 'flex',
     flexDirection: 'column'
   },
