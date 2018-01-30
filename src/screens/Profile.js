@@ -11,6 +11,7 @@ class Profile extends Component {
   logout = () => {
     firebase.logout()
     this.props.changeNavBarOption(0)
+    window.location.reload()
   }
 
   render() {
