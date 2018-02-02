@@ -10,14 +10,14 @@ const menuIcon = <IconButton><MenuIcon/></IconButton>
 export default class Header extends Component {
 
   handleClick() {
-    alert('onClick triggered on the title component')
+    window.scrollTo(0,0)
   }
 
   render() {
     return (
       <AppBar
         title="selly"
-        onRightIconButtonClick={this.handleClick}
+        onTitleClick={this.handleClick}
         iconElementLeft={menuIcon}
         showMenuIconButton={false}
         style={styles.headerContainer}
