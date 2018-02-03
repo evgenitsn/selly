@@ -1,42 +1,40 @@
 import React, { Component } from 'react'
-import firebase from 'firebase'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
+import { firebaseConnect } from 'react-redux-firebase'
 import { changeNavBarOption } from '../components/Footer-duck'
-
-import {List, ListItem} from 'material-ui/List'
-import RaisedButton from 'material-ui/RaisedButton'
-import Avatar from 'material-ui/Avatar'
 import { Loading } from '../components'
 
+import Avatar from 'material-ui/Avatar'
+import { List, ListItem } from 'material-ui/List'
+import RaisedButton from 'material-ui/RaisedButton'
 
-import ContentInbox from 'material-ui/svg-icons/content/inbox';
-import ActionGrade from 'material-ui/svg-icons/action/grade';
-import ContentSend from 'material-ui/svg-icons/content/send';
-
-import Divider from 'material-ui/Divider';
+import ContentInbox from 'material-ui/svg-icons/content/inbox'
+import ActionGrade from 'material-ui/svg-icons/action/grade'
+import ContentSend from 'material-ui/svg-icons/content/send'
+import Divider from 'material-ui/Divider'
 
 class Profile extends Component {
   logout = () => {
-    firebase.logout()
+    this.props.firebase.logout()
     this.props.changeNavBarOption(0)
-    window.location.reload()
   }
 
   render() {
-    if(!this.props.firebase.profile.isLoaded) {
+    if(!this.props.profile.isLoaded) {
       return <Loading />
     }
     return (
       <div style={styles.body}>
         <div style={styles.profileHeaderContainer}>
-          {this.props.firebase.profile.avatarUrl ? 
-            <Avatar size={80} src={this.props.firebase.profile.avatarUrl} /> :
+          {this.props.profile.avatarUrl ?
+            <Avatar size={80} src={this.props.profile.avatarUrl} /> :
             <Avatar size={80} src={require("../assets/Avatar.png")} />
           }
           <div style={{marginLeft: 20, color: '#fafafa'}}>
-            <div>{this.props.firebase.profile.displayName}</div>
+            <div>{this.props.profile.displayName}</div>
             <br/>
-            <div>{this.props.firebase.profile.email}</div>
+            <div>{this.props.profile.email}</div>
           </div>
         </div>
         <div style={styles.container}>
@@ -45,26 +43,26 @@ class Profile extends Component {
             <Divider/>
             <ListItem primaryText="Edit Profile" leftIcon={<ActionGrade />} />
             <Divider/>
-            <ListItem 
+            <ListItem
               onClick={() => this.logout()}
-              primaryText="Logout" 
-              leftIcon={<ContentSend />} 
+              primaryText="Logout"
+              leftIcon={<ContentSend />}
             />
           </List>
         </div>
       </div>
     )
-    }
   }
+}
 
 const mapStateToProps = (state) => {
   return {
-    firebase: state.firebase,
+    profile: state.firebase.profile,
     footer: state.footerReducer
   }
 }
 
-export default connect(mapStateToProps, {changeNavBarOption})(Profile)
+export default compose(connect(mapStateToProps, {changeNavBarOption}), firebaseConnect())(Profile)
 
 const styles = {
   body: {
