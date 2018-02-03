@@ -20,16 +20,17 @@ const muiTheme = getMuiTheme({
 })
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBkKIlHjVgMQhvU7SduoCHbwzgv8QmHfEc",
-    authDomain: "selly-2c78f.firebaseapp.com",
-    databaseURL: "https://selly-2c78f.firebaseio.com",
-    projectId: "selly-2c78f",
-    storageBucket: "selly-2c78f.appspot.com",
-    messagingSenderId: "181748382649"
+  apiKey: "AIzaSyBkKIlHjVgMQhvU7SduoCHbwzgv8QmHfEc",
+  authDomain: "selly-2c78f.firebaseapp.com",
+  databaseURL: "https://selly-2c78f.firebaseio.com",
+  projectId: "selly-2c78f",
+  storageBucket: "selly-2c78f.appspot.com",
+  messagingSenderId: "181748382649"
 }
 
 const rrfConfig = {
   userProfile: 'users',
+  preserveOnLogin: { profile: ['displayName', 'email', 'isLoaded', 'isEmpty'] }
   // useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
 }
 
