@@ -6,12 +6,4 @@ import Register from './Register'
 import Saved from './Saved'
 import Search from './Search'
 
-export {
-    Home,
-    Create,
-    Profile,
-    Login,
-    Register,
-    Saved,
-    Search
-}
+export { Home, Create, Profile, Login, Register, Saved, Search }
