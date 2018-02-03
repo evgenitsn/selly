@@ -18,34 +18,42 @@ import { green500 } from 'material-ui/styles/colors'
 
 class Create extends Component {
   state = {
-    value: null,
-  };
+    value: null
+  }
 
   pushSample = () => {
     const user = {
       uid: this.props.firebase.auth.uid,
       email: this.props.firebase.auth.email,
-      displayName: this.props.firebase.auth.displayName,
+      displayName: this.props.firebase.auth.displayName
     }
-    let data = {...this.props.formValues, user, createdOn: firebase.database.ServerValue.TIMESTAMP}
-    
+    let data = {
+      ...this.props.formValues,
+      user,
+      createdOn: firebase.database.ServerValue.TIMESTAMP
+    }
+
     firebase.push('ads', data).then(res => {
       this.props.reset()
     })
   }
 
-  uploadFile = (e) => {
+  uploadFile = e => {
     console.log(e.target.files)
-    return firebase.uploadFile('uploadedFiles', e.target.files[0], 'uploadedFiles')
+    return firebase.uploadFile(
+      'uploadedFiles',
+      e.target.files[0],
+      'uploadedFiles'
+    )
   }
 
-  handleChange = (event, index, value) => this.setState({value});
+  handleChange = (event, index, value) => this.setState({ value })
   // Add Stepper for the ad
   render() {
-    const {pristine, submitting, valid} = this.props
+    const { pristine, submitting, valid } = this.props
     return (
       <div>
-        <form style={{...styles.body, ...styles.flex}}>
+        <form style={{ ...styles.body, ...styles.flex }}>
           <h4>Details</h4>
           <div style={styles.flex}>
             <Field
@@ -59,8 +67,7 @@ class Create extends Component {
               label="Category"
               value={this.state.value}
               component={FormSelectField}
-              onChange={this.handleChange}
-            >
+              onChange={this.handleChange}>
               <MenuItem value={'Cat1'} primaryText="Cat1" />
               <MenuItem value={'Cat2'} primaryText="Cat2" />
               <MenuItem value={'Cat3'} primaryText="Cat3" />
@@ -80,12 +87,12 @@ class Create extends Component {
               type="number"
             />
             <Field name="itemCondition" component={FormRadioGroup}>
-              <RadioButton value="new" label="New"/>
-              <RadioButton value="used" label="Used"/>
+              <RadioButton value="new" label="New" />
+              <RadioButton value="used" label="Used" />
             </Field>
-            <br/>
+            <br />
           </div>
-          
+
           <div style={styles.flex}>
             <h4>Contacts</h4>
             <Field
@@ -108,16 +115,19 @@ class Create extends Component {
             label="Choose an Image"
             labelPosition="before"
             style={styles.uploadButton}
-            containerElement="label"
-          >
-            <input type="file" style={styles.uploadInput} onChange={(e) => this.uploadFile(e)} />
+            containerElement="label">
+            <input
+              type="file"
+              style={styles.uploadInput}
+              onChange={e => this.uploadFile(e)}
+            />
           </FlatButton>
           <RaisedButton
             onClick={() => this.pushSample()}
-            label="Create" 
+            label="Create"
             disabled={!valid || pristine || submitting}
-            disabledBackgroundColor = "lightgrey"
-            disabledLabelColor = "white"
+            disabledBackgroundColor="lightgrey"
+            disabledLabelColor="white"
             backgroundColor={green500}
             labelColor="#fafafa"
           />
@@ -127,22 +137,25 @@ class Create extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     firebase: state.firebase,
     formValues: state.form.Create.values
   }
 }
 
-Create = compose(firebaseConnect(['uploadedFiles']), connect(mapStateToProps, {}))(Create)
-export default reduxForm({form: 'Create', validate})(Create)
+Create = compose(
+  firebaseConnect(['uploadedFiles']),
+  connect(mapStateToProps, {})
+)(Create)
+export default reduxForm({ form: 'Create', validate })(Create)
 
 const styles = {
   body: {
     margin: '0 auto',
     maxWidth: 500,
     marginTop: 80,
-    marginBottom: 80,
+    marginBottom: 80
   },
   flex: {
     display: 'flex',
@@ -150,7 +163,7 @@ const styles = {
     alignItems: 'center'
   },
   uploadButton: {
-    verticalAlign: 'middle',
+    verticalAlign: 'middle'
   },
   uploadInput: {
     cursor: 'pointer',
@@ -160,6 +173,6 @@ const styles = {
     right: 0,
     left: 0,
     width: '100%',
-    opacity: 0,
-  },
+    opacity: 0
+  }
 }
