@@ -6,15 +6,15 @@ export default class Search extends Component {
   render() {
     return (
       <div style={styles.body}>
-          <SearchBar
-            onChange={() => console.log('onChange')}
-            onRequestSearch={() => console.log('onRequestSearch')}
-            style={{
-              margin: '0 auto',
-              maxWidth: 800,
-              margin: 15
-            }}
-          />
+        <SearchBar
+          onChange={() => console.log('onChange')}
+          onRequestSearch={() => console.log('onRequestSearch')}
+          style={{
+            margin: '0 auto',
+            maxWidth: 800,
+            margin: 15
+          }}
+        />
       </div>
     )
   }
@@ -29,11 +29,11 @@ const styles = {
     paddingTop: 55
   },
   profileHeaderContainer: {
-      padding: 20,
-      height: '15vh',
-      backgroundColor: 'lightgrey',
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center'
+    padding: 20,
+    height: '15vh',
+    backgroundColor: 'lightgrey',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   }
 }

@@ -3,10 +3,13 @@ import { connect } from 'react-redux'
 
 import { changeNavBarOption } from './Footer-duck'
 
-import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation'
+import {
+  BottomNavigation,
+  BottomNavigationItem
+} from 'material-ui/BottomNavigation'
 import Paper from 'material-ui/Paper'
 
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import HomeIcon from 'material-ui/svg-icons/action/home'
 import AddIcon from 'material-ui/svg-icons/content/add-circle-outline'
@@ -21,37 +24,37 @@ class Footer extends Component {
         <BottomNavigation selectedIndex={this.props.selectedOption}>
           <BottomNavigationItem
             style={styles.alignTextOfMenus}
-            containerElement={<Link to='/'/>}
+            containerElement={<Link to="/" />}
             label="Home"
-            icon={<HomeIcon/>}
+            icon={<HomeIcon />}
             onClick={() => this.props.changeNavBarOption(0)}
           />
           <BottomNavigationItem
             style={styles.alignTextOfMenus}
-            containerElement={<Link to='/search'/>}
+            containerElement={<Link to="/search" />}
             label="Search"
-            icon={<SearchIcon/>}
+            icon={<SearchIcon />}
             onClick={() => this.props.changeNavBarOption(1)}
           />
           <BottomNavigationItem
             style={styles.alignTextOfMenus}
-            containerElement={<Link to='/create'/>}
+            containerElement={<Link to="/create" />}
             label="Create"
-            icon={<AddIcon/>}
+            icon={<AddIcon />}
             onClick={() => this.props.changeNavBarOption(2)}
           />
           <BottomNavigationItem
             style={styles.alignTextOfMenus}
-            containerElement={<Link to='/saved'/>}
+            containerElement={<Link to="/saved" />}
             label="Saved"
-            icon={<StarIcon/>}
+            icon={<StarIcon />}
             onClick={() => this.props.changeNavBarOption(3)}
           />
           <BottomNavigationItem
             style={styles.alignTextOfMenus}
-            containerElement={<Link to='/profile'/>}
+            containerElement={<Link to="/profile" />}
             label="Profile"
-            icon={<ProfileIcon/>}
+            icon={<ProfileIcon />}
             onClick={() => this.props.changeNavBarOption(4)}
           />
         </BottomNavigation>
@@ -60,7 +63,7 @@ class Footer extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     selectedOption: state.footerReducer.selectedOption
   }

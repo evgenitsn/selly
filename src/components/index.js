@@ -8,12 +8,12 @@ import Loading from './Loading'
 import Snackbar from './Snackbar'
 
 export {
-    Header,
-    Footer,
-    Post,
-    FormTextField,
-    FormSelectField,
-    FormRadioGroup,
-    Loading,
-    Snackbar
+  Header,
+  Footer,
+  Post,
+  FormTextField,
+  FormSelectField,
+  FormRadioGroup,
+  Loading,
+  Snackbar
 }

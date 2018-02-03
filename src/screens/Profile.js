@@ -21,28 +21,30 @@ class Profile extends Component {
   }
 
   render() {
-    if(!this.props.profile.isLoaded) {
+    if (!this.props.profile.isLoaded) {
       return <Loading />
     }
     return (
       <div style={styles.body}>
         <div style={styles.profileHeaderContainer}>
-          {this.props.profile.avatarUrl ?
-            <Avatar size={80} src={this.props.profile.avatarUrl} /> :
-            <Avatar size={80} src={require("../assets/Avatar.png")} />
-          }
-          <div style={{marginLeft: 20, color: '#fafafa'}}>
+          {this.props.profile.avatarUrl ? (
+            <Avatar size={80} src={this.props.profile.avatarUrl} />
+          ) : (
+            <Avatar size={80} src={require('../assets/Avatar.png')} />
+          )}
+          <div style={{ marginLeft: 20, color: '#fafafa' }}>
             <div>{this.props.profile.displayName}</div>
-            <br/>
+            <br />
             <div>{this.props.profile.email}</div>
           </div>
         </div>
         <div style={styles.container}>
-          <List style={{margin: 20, width: '100%', backgroundColor: '#fafafa'}}>
+          <List
+            style={{ margin: 20, width: '100%', backgroundColor: '#fafafa' }}>
             <ListItem primaryText="My ads" leftIcon={<ContentInbox />} />
-            <Divider/>
+            <Divider />
             <ListItem primaryText="Edit Profile" leftIcon={<ActionGrade />} />
-            <Divider/>
+            <Divider />
             <ListItem
               onClick={() => this.logout()}
               primaryText="Logout"
@@ -55,14 +57,17 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     profile: state.firebase.profile,
     footer: state.footerReducer
   }
 }
 
-export default compose(connect(mapStateToProps, {changeNavBarOption}), firebaseConnect())(Profile)
+export default compose(
+  connect(mapStateToProps, { changeNavBarOption }),
+  firebaseConnect()
+)(Profile)
 
 const styles = {
   body: {
@@ -84,6 +89,6 @@ const styles = {
     alignItems: 'center'
   },
   registerButton: {
-    margin: 12,
-  },
+    margin: 12
+  }
 }

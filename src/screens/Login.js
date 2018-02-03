@@ -7,30 +7,33 @@ import { Field, reduxForm } from 'redux-form'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 
-import {FormTextField, Snackbar} from '../components'
+import { FormTextField, Snackbar } from '../components'
 import validate from '../validate'
 import Background from '../assets/pattern.png'
 import { firebaseConnect } from 'react-redux-firebase'
 
 class Login extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       open: false,
       message: ''
-    };
+    }
   }
   //SHOW TOAST WITH MSG
-  login = ({email, password}) => {
-    this.props.firebase.login({email, password})
+  login = ({ email, password }) => {
+    this.props.firebase
+      .login({ email, password })
       .then(res => this.props.reset())
       .catch(e => {
         this.setState({
           open: true,
           message: e.code
         })
-        if(e.code === "auth/user-not-found"){
-          console.log('There is no user record corresponding to this identifier. The user may have been deleted.')
+        if (e.code === 'auth/user-not-found') {
+          console.log(
+            'There is no user record corresponding to this identifier. The user may have been deleted.'
+          )
         } else {
           console.log('Unexpected Error: ', e)
         }
@@ -38,43 +41,51 @@ class Login extends Component {
   }
 
   googleLogin = () => {
-    this.props.firebase.login({ provider: 'google', type: 'popup' })
+    this.props.firebase
+      .login({ provider: 'google', type: 'popup' })
       .then()
       .catch(e => {
         this.setState({
           open: true,
           message: e.code
         })
-        if(e.code === "auth/user-not-found"){
-          console.log('There is no user record corresponding to this identifier. The user may have been deleted.')
+        if (e.code === 'auth/user-not-found') {
+          console.log(
+            'There is no user record corresponding to this identifier. The user may have been deleted.'
+          )
         } else {
           console.log('Unexpected Error: ', e)
         }
       })
   }
 
-  handleSubmit = (e) => {
-    if(this.props.valid) {
-      const {email, password} = this.props.formValues
-      this.login({email, password})
+  handleSubmit = e => {
+    if (this.props.valid) {
+      const { email, password } = this.props.formValues
+      this.login({ email, password })
     }
   }
 
   render() {
-    const {pristine, submitting, valid} = this.props
+    const { pristine, submitting, valid } = this.props
     return (
-      <div style={{...styles.flex, ...styles.body, justifyContent: 'space-evenly'}}>
-        <div style={{...styles.flex}}>
+      <div
+        style={{
+          ...styles.flex,
+          ...styles.body,
+          justifyContent: 'space-evenly'
+        }}>
+        <div style={{ ...styles.flex }}>
           <h1 style={styles.title}>selly</h1>
         </div>
-        <div style={{...styles.flex}}>
-          <form style={{...styles.flex, ...styles.form}}>
+        <div style={{ ...styles.flex }}>
+          <form style={{ ...styles.flex, ...styles.form }}>
             <div style={styles.loginLabel}>login</div>
             <Field
               name="email"
               component={FormTextField}
               floatingLabelText="email"
-              errorStyle={{fontFamily: 'Oxygen', textTransform: 'lowercase'}}
+              errorStyle={{ fontFamily: 'Oxygen', textTransform: 'lowercase' }}
               inputStyle={styles.inputStyle}
               floatingLabelStyle={styles.inputStyle}
             />
@@ -83,7 +94,7 @@ class Login extends Component {
               type="password"
               component={FormTextField}
               floatingLabelText="password"
-              errorStyle={{fontFamily: 'Oxygen', textTransform: 'lowercase'}}
+              errorStyle={{ fontFamily: 'Oxygen', textTransform: 'lowercase' }}
               inputStyle={styles.inputStyle}
               floatingLabelStyle={styles.inputStyle}
             />
@@ -93,48 +104,52 @@ class Login extends Component {
               label="Login"
               backgroundColor="#e3fffd"
               labelColor="#0a0a0a"
-              style={{...styles.loginButton, borderRadius: 25}}
-              labelStyle={{fontFamily: 'Oxygen', textTransform: 'lowercase'}}
+              style={{ ...styles.loginButton, borderRadius: 25 }}
+              labelStyle={{ fontFamily: 'Oxygen', textTransform: 'lowercase' }}
               buttonStyle={{ borderRadius: 25 }}
-              disabledBackgroundColor = "lightgrey"
-              disabledLabelColor = "white"
+              disabledBackgroundColor="lightgrey"
+              disabledLabelColor="white"
               disabled={!valid || pristine || submitting}
-              onClick={(e) => this.handleSubmit(e)}
+              onClick={e => this.handleSubmit(e)}
             />
             <RaisedButton
               label="Google"
               backgroundColor="#df4a32"
               labelColor="#fafafa"
-              style={{...styles.loginButton, borderRadius: 25}}
-              labelStyle={{fontFamily: 'Oxygen', textTransform: 'lowercase'}}
+              style={{ ...styles.loginButton, borderRadius: 25 }}
+              labelStyle={{ fontFamily: 'Oxygen', textTransform: 'lowercase' }}
               buttonStyle={{ borderRadius: 25 }}
               onClick={() => this.googleLogin()}
             />
           </div>
           <FlatButton
-            containerElement={<Link to='/register'/>}
-            labelStyle={{ color: '#fafafa', fontFamily: 'Oxygen', textTransform: 'lowercase'}}
+            containerElement={<Link to="/register" />}
+            labelStyle={{
+              color: '#fafafa',
+              fontFamily: 'Oxygen',
+              textTransform: 'lowercase'
+            }}
             label="Join us"
           />
         </div>
         <Snackbar
           open={this.state.open}
           message={this.state.message}
-          onActionClick={() => this.setState({open: false})}
+          onActionClick={() => this.setState({ open: false })}
         />
       </div>
     )
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     formValues: state.form.Login.values
   }
 }
 
 Login = compose(connect(mapStateToProps, {}), firebaseConnect())(Login)
-export default reduxForm({form: 'Login', validate})(Login)
+export default reduxForm({ form: 'Login', validate })(Login)
 
 const styles = {
   flex: {
@@ -151,7 +166,7 @@ const styles = {
   loginButton: {
     margin: 12,
     width: 60,
-    marginTop: 10,
+    marginTop: 10
   },
   welcomeMsg: {
     fontSize: '1.5em',
@@ -171,14 +186,15 @@ const styles = {
     fontFamily: 'Oxygen',
     marginBottom: 20,
     fontSize: '1.8em',
-    color: '#E3FFFD',
+    color: '#E3FFFD'
   },
   form: {
     padding: '5%',
     borderRadius: 5
   },
   inputStyle: {
-    color: 'white', fontFamily: 'Oxygen'
+    color: 'white',
+    fontFamily: 'Oxygen'
   },
   buttonsContainer: {
     display: 'flex'

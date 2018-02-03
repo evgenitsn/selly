@@ -5,12 +5,15 @@ import IconButton from 'material-ui/IconButton'
 
 import MenuIcon from 'material-ui/svg-icons/navigation/menu'
 
-const menuIcon = <IconButton><MenuIcon/></IconButton>
+const menuIcon = (
+  <IconButton>
+    <MenuIcon />
+  </IconButton>
+)
 
 export default class Header extends Component {
-
   handleClick() {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0)
   }
 
   render() {

@@ -1,15 +1,15 @@
-const SELECT_NAVBAR_OPTION = "SELECT_NAVBAR_OPTION"
+const SELECT_NAVBAR_OPTION = 'SELECT_NAVBAR_OPTION'
 
 const initialState = {
   selectedOption: initialNavBarSelectedItem()
 }
 
 export const footerReducer = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case SELECT_NAVBAR_OPTION:
-    return { ...state, selectedOption: action.payload}
+      return { ...state, selectedOption: action.payload }
     default:
-    return state
+      return state
   }
 }
 
@@ -22,7 +22,7 @@ export function changeNavBarOption(index) {
 
 function initialNavBarSelectedItem() {
   let index = 0
-  switch(window.location.pathname){
+  switch (window.location.pathname) {
     case '/search':
       index = 1
       break
