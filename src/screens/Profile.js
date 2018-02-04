@@ -41,7 +41,11 @@ class Profile extends Component {
         <div style={styles.container}>
           <List
             style={{ margin: 20, width: '100%', backgroundColor: '#fafafa' }}>
-            <ListItem primaryText="My ads" leftIcon={<ContentInbox />} />
+            <ListItem
+              primaryText="My ads"
+              leftIcon={<ContentInbox />}
+              onClick={() => this.props.history.push('/profile/myads')}
+            />
             <Divider />
             <ListItem primaryText="Edit Profile" leftIcon={<ActionGrade />} />
             <Divider />

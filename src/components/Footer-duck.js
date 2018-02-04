@@ -22,22 +22,15 @@ export function changeNavBarOption(index) {
 
 function initialNavBarSelectedItem() {
   let index = 0
-  switch (window.location.pathname) {
-    case '/search':
-      index = 1
-      break
-    case '/create':
-      index = 2
-      break
-    case '/saved':
-      index = 3
-      break
-    case '/profile':
-      index = 4
-      break
-    default:
-      index = 0
-      break
+  if(window.location.pathname.startsWith('/search')) {
+    index = 1
+  } else if(window.location.pathname.startsWith('/create')){
+    index = 2
+  } else if(window.location.pathname.startsWith('/saved')){
+    index = 3
+  } else if(window.location.pathname.startsWith('/profile')){
+    index = 4
   }
+  
   return index
 }

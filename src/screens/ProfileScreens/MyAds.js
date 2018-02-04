@@ -9,35 +9,51 @@ import {
 } from 'react-redux-firebase'
 import RaisedButton from 'material-ui/RaisedButton'
 import { Card, CardHeader, CardMedia, CardText } from 'material-ui/Card'
-import { Post } from '../components'
-import Loading from '../components/Loading'
+import { Post } from '../../components'
+import Loading from '../../components/Loading'
 import Link from 'react-router-dom/Link'
 
-class Home extends Component {
+class MyAds extends Component {
   render() {
-    const { ads, userId, history } = this.props
-    const adsList = isEmpty(ads)
+    const { myAds, userId, history } = this.props
+    const adsList = isEmpty(myAds)
       ? 'Todo list is empty'
-      : Object.keys(ads).map((key, id) => (
+      : Object.keys(myAds).map((key, id) => (
           <Card key={key} id={id} style={styles.card}>
             <CardHeader
-              title={ads[key]['title']}
-              subtitle={ads[key]['category']}
+              title={myAds[key]['title']}
+              subtitle={myAds[key]['category']}
             />
-            <CardText>{ads[key]['price']}</CardText>
+            <CardText>{myAds[key]['price']}</CardText>
           </Card>
         ))
-    if (!isLoaded(ads)) {
+    if (!isLoaded(myAds)) {
       return <Loading />
     }
-    return <div style={styles.body}>{adsList}</div>
+    return (
+      <div style={styles.body}>
+        <div>My ads</div>
+        {adsList}
+      </div>
+    )
   }
 }
 
 export default compose(
-  connect(state => ({ ads: state.firebase.data.ads })),
-  firebaseConnect([{ path: 'ads' }])
-)(Home)
+  connect(state => ({
+    myAds: state.firebase.data['myAds'],
+    userId: state.firebase.auth.uid
+  })),
+  firebaseConnect(props => {
+    return [
+      {
+        path: '/ads',
+        storeAs: 'myAds',
+        queryParams: ['orderByChild=user', `equalTo=${props.userId}`]
+      }
+    ]
+  })
+)(MyAds)
 
 const styles = {
   body: {

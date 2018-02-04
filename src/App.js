@@ -7,7 +7,8 @@ import {
   Login,
   Register,
   Search,
-  Saved
+  Saved,
+  MyAds
 } from './screens'
 import { Loading, Header, Footer } from './components'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
@@ -36,6 +37,7 @@ class App extends Component {
             <Route path="/create" exact component={Create} />
             <Route path="/saved" exact component={Saved} />
             <Route path="/profile" exact component={Profile} />
+            <Route path="/profile/myads" exact component={MyAds} />
             <Redirect to="/" />
           </Switch>
           <Footer />

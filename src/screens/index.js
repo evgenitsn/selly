@@ -5,5 +5,6 @@ import Login from './Login'
 import Register from './Register'
 import Saved from './Saved'
 import Search from './Search'
+import MyAds from './ProfileScreens/MyAds'
 
-export { Home, Create, Profile, Login, Register, Saved, Search }
+export { Home, Create, Profile, Login, Register, Saved, Search, MyAds }
