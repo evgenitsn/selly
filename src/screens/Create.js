@@ -22,14 +22,9 @@ class Create extends Component {
   }
 
   pushSample = () => {
-    const user = {
-      uid: this.props.firebase.auth.uid,
-      email: this.props.firebase.auth.email,
-      displayName: this.props.firebase.auth.displayName
-    }
     let data = {
       ...this.props.formValues,
-      user,
+      uid: this.props.firebase.auth.uid,
       createdOn: firebase.database.ServerValue.TIMESTAMP
     }
 
