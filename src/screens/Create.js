@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import firebase from 'firebase'
 import { Field, reduxForm } from 'redux-form'
 import { firebaseConnect } from 'react-redux-firebase'
 
@@ -9,11 +8,25 @@ import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import MenuItem from 'material-ui/MenuItem'
 import { RadioButton } from 'material-ui/RadioButton'
+import { GridList, GridTile } from 'material-ui/GridList'
 
-import { FormTextField, FormSelectField, FormRadioGroup } from '../components'
+import IconButton from 'material-ui/IconButton'
+import StarBorder from 'material-ui/svg-icons/toggle/star-border'
+
+import {
+  FormTextField,
+  FormSelectField,
+  FormRadioGroup,
+  FileUploader
+} from '../components'
 
 import validate from '../validate'
 import { green500 } from 'material-ui/styles/colors'
+
+import Dropzone from 'react-dropzone'
+import map from 'lodash/map'
+
+const filesPath = 'uploadedFiles'
 
 class Create extends Component {
   state = {
@@ -23,22 +36,30 @@ class Create extends Component {
   pushSample = () => {
     let data = {
       ...this.props.formValues,
-      uid: this.props.firebase.auth.uid,
-      createdOn: firebase.database.ServerValue.TIMESTAMP
+      uid: this.props.firebaseAuth.uid,
+      createdOn: this.props.firebase.database.ServerValue.TIMESTAMP
     }
 
-    firebase.push('ads', data).then(res => {
+    this.props.firebase.push('ads', data).then(res => {
       this.props.reset()
     })
   }
 
-  uploadFile = e => {
-    console.log(e.target.files)
-    return firebase.uploadFile(
-      'uploadedFiles',
-      e.target.files[0],
-      'uploadedFiles'
-    )
+  // Uploads files and push's objects containing metadata to database at dbPath
+  onFilesDrop = files => {
+    console.log(files)
+    // uploadFiles(storagePath, files, dbPath)
+    this.props.firebase
+      .uploadFiles(filesPath, files, filesPath)
+      .then(r => console.log(r))
+  }
+
+  // Deletes file and removes metadata from database
+  onFileDelete = (file, key) => {
+    // deleteFile(storagePath, dbPath)
+    this.props.firebase
+      .deleteFile(file.fullPath, `${filesPath}/${key}`)
+      .then(r => console.log(r))
   }
 
   handleChange = (event, index, value) => this.setState({ value })
@@ -46,9 +67,32 @@ class Create extends Component {
   render() {
     const { pristine, submitting, valid } = this.props
     return (
-      <div>
-        <form style={{ ...styles.body, ...styles.flex }}>
+      <div style={styles.body}>
+        <div style={styles.root}>
+          <h3>Uploaded file(s):</h3>
+          <GridList style={styles.gridList} cols={2.2}>
+            {map(this.props.uploadedFiles, (file, key) => (
+              <GridTile
+                key={file.name + key}
+                title={file.name}
+                titleStyle={styles.titleStyle}
+                actionIcon={
+                  <IconButton onClick={() => this.onFileDelete(file, key)}>
+                    <StarBorder color="#fafafa" />
+                  </IconButton>
+
+                }
+                titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)">
+                <img src={file.downloadURL} />
+              </GridTile>
+            ))}
+          </GridList>
+        </div>
+        <form style={{ ...styles.flex }}>
           <h4>Details</h4>
+          <Dropzone onDrop={this.onFilesDrop}>
+            <div>Drag and drop files here or click to select</div>
+          </Dropzone>
           <div style={styles.flex}>
             <Field
               name="title"
@@ -105,17 +149,6 @@ class Create extends Component {
               floatingLabelText="Phone"
             />
           </div>
-          <FlatButton
-            label="Choose an Image"
-            labelPosition="before"
-            style={styles.uploadButton}
-            containerElement="label">
-            <input
-              type="file"
-              style={styles.uploadInput}
-              onChange={e => this.uploadFile(e)}
-            />
-          </FlatButton>
           <RaisedButton
             onClick={() => this.pushSample()}
             label="Create"
@@ -133,15 +166,15 @@ class Create extends Component {
 
 const mapStateToProps = state => {
   return {
-    firebase: state.firebase,
-    formValues: state.form.Create.values
+    firebaseAuth: state.firebase.auth,
+    formValues: state.form.Create.values,
+    uploadedFiles: state.firebase.data[filesPath]
   }
 }
 
-Create = compose(
-  firebaseConnect(['uploadedFiles']),
-  connect(mapStateToProps, {})
-)(Create)
+Create = compose(firebaseConnect([filesPath]), connect(mapStateToProps, {}))(
+  Create
+)
 export default reduxForm({ form: 'Create', validate })(Create)
 
 const styles = {
@@ -168,5 +201,18 @@ const styles = {
     left: 0,
     width: '100%',
     opacity: 0
+  },
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around'
+  },
+  gridList: {
+    display: 'flex',
+    flexWrap: 'nowrap',
+    overflowX: 'auto'
+  },
+  titleStyle: {
+    color: '#fafafa'
   }
 }
