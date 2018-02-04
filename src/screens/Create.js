@@ -5,7 +5,6 @@ import firebase from 'firebase'
 import { Field, reduxForm } from 'redux-form'
 import { firebaseConnect } from 'react-redux-firebase'
 
-import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
 import MenuItem from 'material-ui/MenuItem'

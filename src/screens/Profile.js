@@ -7,7 +7,6 @@ import { Loading } from '../components'
 
 import Avatar from 'material-ui/Avatar'
 import { List, ListItem } from 'material-ui/List'
-import RaisedButton from 'material-ui/RaisedButton'
 
 import ContentInbox from 'material-ui/svg-icons/content/inbox'
 import ActionGrade from 'material-ui/svg-icons/action/grade'

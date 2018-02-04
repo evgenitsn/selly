@@ -10,7 +10,6 @@ export default class Search extends Component {
           onChange={() => console.log('onChange')}
           onRequestSearch={() => console.log('onRequestSearch')}
           style={{
-            margin: '0 auto',
             maxWidth: 800,
             margin: 15
           }}

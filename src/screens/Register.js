@@ -6,7 +6,6 @@ import firebase from 'firebase'
 
 import RaisedButton from 'material-ui/RaisedButton'
 import FlatButton from 'material-ui/FlatButton'
-import DatePicker from 'material-ui/DatePicker'
 
 import { FormTextField, Snackbar } from '../components'
 import validate from '../validate'

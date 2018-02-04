@@ -6,12 +6,3 @@ export default class Saved extends Component {
     return <Loading />
   }
 }
-
-const styles = {
-  body: {
-    margin: '0 auto',
-    maxWidth: 500,
-    marginTop: 64,
-    marginBottom: 80
-  }
-}

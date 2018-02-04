@@ -1,13 +1,8 @@
 import React, { Component } from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import {
-  firebaseConnect,
-  isLoaded,
-  isEmpty,
-  populate
-} from 'react-redux-firebase'
-import { Post, Loading, DisplayCard } from '../../components'
+import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
+import { Loading, DisplayCard } from '../../components'
 
 class MyAds extends Component {
   renderMyAdsList() {
@@ -22,7 +17,7 @@ class MyAds extends Component {
   }
 
   render() {
-    const { myAds, userId, history } = this.props
+    const { myAds } = this.props
     if (!isLoaded(myAds)) {
       return <Loading />
     }

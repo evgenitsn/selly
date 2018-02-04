@@ -1,6 +1,5 @@
 import Header from './Header'
 import Footer from './Footer'
-import Post from './Post'
 import FormTextField from './FormTextField'
 import FormSelectField from './FormSelectField'
 import FormRadioGroup from './FormRadioGroup'
@@ -11,7 +10,6 @@ import DisplayCard from './DisplayCard'
 export {
   Header,
   Footer,
-  Post,
   FormTextField,
   FormSelectField,
   FormRadioGroup,
