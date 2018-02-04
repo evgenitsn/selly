@@ -7,35 +7,26 @@ import {
   isEmpty,
   populate
 } from 'react-redux-firebase'
-import RaisedButton from 'material-ui/RaisedButton'
-import { Card, CardHeader, CardMedia, CardText } from 'material-ui/Card'
-import { Post } from '../../components'
-import Loading from '../../components/Loading'
-import Link from 'react-router-dom/Link'
+import { Post, Loading, DisplayCard } from '../../components'
 
 class MyAds extends Component {
+  renderMyAdsList() {
+    const myAds = this.props.myAds
+    if (isEmpty(myAds)) {
+      return 'Todo list is empty. Please create UX Component for that'
+    } else {
+      return Object.keys(myAds).map((key, id) => (
+        <DisplayCard ads={myAds} key={key} adKey={key} />
+      ))
+    }
+  }
+
   render() {
     const { myAds, userId, history } = this.props
-    const adsList = isEmpty(myAds)
-      ? 'Todo list is empty'
-      : Object.keys(myAds).map((key, id) => (
-          <Card key={key} id={id} style={styles.card}>
-            <CardHeader
-              title={myAds[key]['title']}
-              subtitle={myAds[key]['category']}
-            />
-            <CardText>{myAds[key]['price']}</CardText>
-          </Card>
-        ))
     if (!isLoaded(myAds)) {
       return <Loading />
     }
-    return (
-      <div style={styles.body}>
-        <div>My ads</div>
-        {adsList}
-      </div>
-    )
+    return <div style={styles.body}>{this.renderMyAdsList()}</div>
   }
 }
 
