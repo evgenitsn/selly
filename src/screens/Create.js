@@ -5,7 +5,6 @@ import { Field, reduxForm } from 'redux-form'
 import { firebaseConnect } from 'react-redux-firebase'
 
 import RaisedButton from 'material-ui/RaisedButton'
-import FlatButton from 'material-ui/FlatButton'
 import MenuItem from 'material-ui/MenuItem'
 import { RadioButton } from 'material-ui/RadioButton'
 import { GridList, GridTile } from 'material-ui/GridList'
@@ -16,8 +15,7 @@ import StarBorder from 'material-ui/svg-icons/toggle/star-border'
 import {
   FormTextField,
   FormSelectField,
-  FormRadioGroup,
-  FileUploader
+  FormRadioGroup
 } from '../components'
 
 import validate from '../validate'
@@ -83,7 +81,7 @@ class Create extends Component {
 
                 }
                 titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)">
-                <img src={file.downloadURL} />
+                <img src={file.downloadURL} alt={file.name}/>
               </GridTile>
             ))}
           </GridList>
