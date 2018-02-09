@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardHeader, CardMedia, CardText } from 'material-ui/Card'
+import { Card, CardHeader, CardText } from 'material-ui/Card'
 
 const DisplayCard = ({ ads, adKey }) => (
   <Card key={adKey} style={styles.card}>
