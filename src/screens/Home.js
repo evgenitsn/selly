@@ -11,7 +11,7 @@ class Home extends Component {
       return 'Todo list is empty. Please create UX Component for that'
     } else {
       return Object.keys(ads).map((key, id) => {
-        const navigateParams = { pathname: `/ad/${key}`, state: { key: key, ads: ads } }
+        const navigateParams = { pathname: `/ad/${key}`, state: { ad: { key, details: ads[key] } } }
         return (
           <DisplayCard ads={ads} key={key} adKey={key} onClick={() => this.props.history.push(navigateParams)}/>
         )

@@ -123,8 +123,8 @@ class Create extends Component {
               type="number"
             />
             <Field name="itemCondition" component={FormRadioGroup}>
-              <RadioButton value="new" label="New" />
-              <RadioButton value="used" label="Used" />
+              <RadioButton value={true} label="New" />
+              <RadioButton value={false} label="Used" />
             </Field>
             <br />
           </div>
