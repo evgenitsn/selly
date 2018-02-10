@@ -29,11 +29,13 @@ class MyAds extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  myAds: state.firebase.data['myAds'],
+  userId: state.firebase.auth.uid
+})
+
 export default compose(
-  connect(state => ({
-    myAds: state.firebase.data['myAds'],
-    userId: state.firebase.auth.uid
-  })),
+  connect(mapStateToProps),
   firebaseConnect(props => {
     return [
       {
