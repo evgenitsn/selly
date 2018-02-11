@@ -6,6 +6,7 @@ import FormRadioGroup from './FormRadioGroup'
 import Loading from './Loading'
 import Snackbar from './Snackbar'
 import DisplayCard from './DisplayCard'
+import CreatedAd from './CreatedAd'
 
 export {
   Header,
@@ -15,5 +16,6 @@ export {
   FormRadioGroup,
   Loading,
   Snackbar,
-  DisplayCard
+  DisplayCard,
+  CreatedAd
 }

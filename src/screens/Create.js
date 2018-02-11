@@ -15,7 +15,8 @@ import StarBorder from 'material-ui/svg-icons/toggle/star-border'
 import {
   FormTextField,
   FormSelectField,
-  FormRadioGroup
+  FormRadioGroup,
+  CreatedAd
 } from '../components'
 
 import validate from '../validate'
@@ -28,7 +29,8 @@ const filesPath = 'uploadedFiles'
 
 class Create extends Component {
   state = {
-    value: null
+    value: null,
+    success: false
   }
 
   pushSample = () => {
@@ -39,6 +41,7 @@ class Create extends Component {
     }
 
     this.props.firebase.push('ads', data).then(res => {
+      this.setState({success: true})
       this.props.reset()
     })
   }
@@ -64,6 +67,7 @@ class Create extends Component {
   // Add Stepper for the ad
   render() {
     const { pristine, submitting, valid } = this.props
+    if(this.state.success) { return <CreatedAd/> }
     return (
       <div style={styles.body}>
         <div style={styles.root}>
