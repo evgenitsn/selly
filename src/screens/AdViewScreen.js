@@ -5,10 +5,20 @@ import { firebaseConnect } from 'react-redux-firebase'
 import { Loading } from '../components'
 import Paper from 'material-ui/Paper'
 import Chip from 'material-ui/Chip'
+import RaisedButton from 'material-ui/RaisedButton'
+import { red200 } from 'material-ui/styles/colors'
 
 class AdViewScreen extends Component {
+
+  deleteItem() {
+    this.props.firebase
+      .remove(`ads/${this.props.location.state.ad.key}`)
+      .then(res => {this.props.history.push('/')})
+  }
+
   render() {
-    if(this.props.singleAd === undefined) {
+    console.log(this.props)
+    if(!this.props.singleAd || this.props.singleAd.title === undefined) {
       return <Loading />
     } else {
       let { category, contactName, createdOn, description, itemCondition, location, price, title, contactPhone } = this.props.singleAd
@@ -48,6 +58,13 @@ class AdViewScreen extends Component {
               <br/>
               <div>{'Phone: ' + contactPhone}</div>
             </Paper>
+            <Paper style={{...styles.paper, display: 'flex', justifyContent: 'center'}} zDepth={1}>
+              <RaisedButton
+                onClick={() => this.deleteItem()}
+                label="Delete"
+                backgroundColor={red200}
+              />
+            </Paper>
           </div>
         </div>
       )
@@ -61,12 +78,17 @@ const mapStateToProps = state => ({
 
 export default compose(
   connect(mapStateToProps),
-  firebaseConnect((props) => [{ path: `ads/${props.location.state.ad.key}`, storeAs: 'singleAd' }])
+  firebaseConnect((props) => {
+    if(props.location.state){
+      return [{ path: `ads/${props.location.state.ad.key}`, storeAs: 'singleAd' }]
+    }
+  })
 )(AdViewScreen)
 
 const styles = {
   outerContainer: {
     paddingTop: 52,
+    paddingBottom: 52,
     width: '100%',
     backgroundColor: '#6BE3CE',
     height: '100%',
