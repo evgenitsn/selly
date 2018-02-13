@@ -64,6 +64,11 @@ class AdViewScreen extends Component {
                   label="Delete"
                   backgroundColor={red200}
                 />
+                <RaisedButton
+                  onClick={() => this.props.history.push(`/ad/${this.props.match.params.id}/edit`)}
+                  label="Edit"
+                  backgroundColor={blue200}
+                />
               </Paper> : null}
           </div>
         </div>
