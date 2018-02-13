@@ -41,7 +41,7 @@ export default compose(
       {
         path: '/ads',
         storeAs: 'myAds',
-        queryParams: ['orderByChild=user', `equalTo=${props.userId}`]
+        queryParams: ['orderByChild=uid', `equalTo=${props.userId}`]
       }
     ]
   })

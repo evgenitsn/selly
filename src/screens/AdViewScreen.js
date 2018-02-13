@@ -58,13 +58,14 @@ class AdViewScreen extends Component {
               <br/>
               <div>{'Phone: ' + contactPhone}</div>
             </Paper>
-            <Paper style={{...styles.paper, display: 'flex', justifyContent: 'center'}} zDepth={1}>
-              <RaisedButton
-                onClick={() => this.deleteItem()}
-                label="Delete"
-                backgroundColor={red200}
-              />
-            </Paper>
+            {this.props.loggedUserUid === this.props.singleAd.uid ? 
+              <Paper style={{...styles.paper, display: 'flex', justifyContent: 'center'}} zDepth={1}>
+                <RaisedButton
+                  onClick={() => this.deleteItem()}
+                  label="Delete"
+                  backgroundColor={red200}
+                />
+              </Paper> : null}
           </div>
         </div>
       )
@@ -73,7 +74,8 @@ class AdViewScreen extends Component {
 }
 
 const mapStateToProps = state => ({
-  singleAd: state.firebase.data['singleAd']
+  singleAd: state.firebase.data['singleAd'],
+  loggedUserUid: state.firebase.auth.uid
 })
 
 export default compose(
