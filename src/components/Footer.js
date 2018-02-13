@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { changeNavBarOption } from './Footer-duck'
+import { changeTitleHeader } from './Header-duck'
 
 import {
   BottomNavigation,
@@ -27,35 +28,50 @@ class Footer extends Component {
             containerElement={<Link to="/" />}
             label="Home"
             icon={<HomeIcon />}
-            onClick={() => this.props.changeNavBarOption(0)}
+            onClick={() => {
+              this.props.changeTitleHeader('selly')
+              this.props.changeNavBarOption(0)
+            }}
           />
           <BottomNavigationItem
             style={styles.alignTextOfMenus}
             containerElement={<Link to="/search" />}
             label="Search"
             icon={<SearchIcon />}
-            onClick={() => this.props.changeNavBarOption(1)}
+            onClick={() => {
+              this.props.changeTitleHeader('search')
+              this.props.changeNavBarOption(1)
+            }}
           />
           <BottomNavigationItem
             style={styles.alignTextOfMenus}
             containerElement={<Link to="/create" />}
             label="Create"
             icon={<AddIcon />}
-            onClick={() => this.props.changeNavBarOption(2)}
+            onClick={() => {
+              this.props.changeTitleHeader('create')
+              this.props.changeNavBarOption(2)
+            }}
           />
           <BottomNavigationItem
             style={styles.alignTextOfMenus}
             containerElement={<Link to="/saved" />}
             label="Saved"
             icon={<StarIcon />}
-            onClick={() => this.props.changeNavBarOption(3)}
+            onClick={() => {
+              this.props.changeTitleHeader('saved')
+              this.props.changeNavBarOption(3)
+            }}
           />
           <BottomNavigationItem
             style={styles.alignTextOfMenus}
             containerElement={<Link to="/profile" />}
             label="Profile"
             icon={<ProfileIcon />}
-            onClick={() => this.props.changeNavBarOption(4)}
+            onClick={() => {
+              this.props.changeTitleHeader('profile')
+              this.props.changeNavBarOption(4)
+            }}
           />
         </BottomNavigation>
       </Paper>
@@ -69,7 +85,7 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { changeNavBarOption })(Footer)
+export default connect(mapStateToProps, { changeNavBarOption, changeTitleHeader })(Footer)
 
 const styles = {
   footerContainer: {

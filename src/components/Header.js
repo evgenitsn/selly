@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
@@ -11,7 +12,7 @@ const menuIcon = (
   </IconButton>
 )
 
-export default class Header extends Component {
+class Header extends Component {
   handleClick() {
     window.scrollTo(0, 0)
   }
@@ -19,7 +20,7 @@ export default class Header extends Component {
   render() {
     return (
       <AppBar
-        title="selly"
+        title={this.props.headerTitle}
         onTitleClick={this.handleClick}
         iconElementLeft={menuIcon}
         showMenuIconButton={false}
@@ -29,6 +30,14 @@ export default class Header extends Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    headerTitle: state.headerReducer.headerTitle,
+  }
+}
+
+export default connect(mapStateToProps)(Header)
 
 const styles = {
   headerContainer: {
