@@ -92,7 +92,7 @@ class Create extends Component {
         </div>
         <form style={{ ...styles.flex }}>
           <h4>Details</h4>
-          <Dropzone onDrop={this.onFilesDrop}>
+          <Dropzone onDrop={this.onFilesDrop} style={styles.dropzone}>
             <div>Drag and drop files here or click to select</div>
           </Dropzone>
           <div style={styles.flex}>
@@ -216,5 +216,10 @@ const styles = {
   },
   titleStyle: {
     color: '#fafafa'
+  },
+  dropzone: {
+    height: 30, 
+    width: 'auto', 
+    backgroundColor: 'orange'
   }
 }
