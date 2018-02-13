@@ -3,8 +3,13 @@ import { Card, CardHeader, CardText } from 'material-ui/Card'
 
 const DisplayCard = ({ ads, adKey, onClick }) => (
   <Card key={adKey} style={styles.card} onClick={() => onClick()}>
-    <CardHeader title={ads[adKey]['title']} subtitle={ads[adKey]['category']} />
-    <CardText>{ads[adKey]['price']}</CardText>
+    <CardHeader title={ads[adKey]['title']}/>
+    <CardText>
+      <p>Category: {ads[adKey]['category']}</p>
+      <p>Price: {ads[adKey]['price']}</p>
+      <p>Location: {ads[adKey]['location']}</p>
+      <p>Contact: {ads[adKey]['contactName']}</p>
+    </CardText>
   </Card>
 )
 
