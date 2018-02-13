@@ -6,18 +6,17 @@ import { Loading } from '../components'
 import Paper from 'material-ui/Paper'
 import Chip from 'material-ui/Chip'
 import RaisedButton from 'material-ui/RaisedButton'
-import { red200 } from 'material-ui/styles/colors'
+import { red200, blue200 } from 'material-ui/styles/colors'
 
 class AdViewScreen extends Component {
 
   deleteItem() {
     this.props.firebase
-      .remove(`ads/${this.props.location.state.ad.key}`)
+      .remove(`ads/${this.props.match.params.id}`)
       .then(res => {this.props.history.push('/')})
   }
 
   render() {
-    console.log(this.props)
     if(!this.props.singleAd || this.props.singleAd.title === undefined) {
       return <Loading />
     } else {
@@ -82,7 +81,7 @@ export default compose(
   connect(mapStateToProps),
   firebaseConnect((props) => {
     if(props.location.state){
-      return [{ path: `ads/${props.location.state.ad.key}`, storeAs: 'singleAd' }]
+      return [{ path: `ads/${props.match.params.id}`, storeAs: 'singleAd' }]
     }
   })
 )(AdViewScreen)
