@@ -7,6 +7,7 @@ import Saved from './Saved'
 import Search from './Search'
 import MyAds from './ProfileScreens/MyAds'
 import AdViewScreen from './AdViewScreen'
+import EditAd from './ProfileScreens/EditAd'
 
 export {
   Home,
@@ -17,5 +18,6 @@ export {
   Saved,
   Search,
   MyAds,
-  AdViewScreen
+  AdViewScreen,
+  EditAd
 }

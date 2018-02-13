@@ -9,7 +9,8 @@ import {
   Search,
   Saved,
   MyAds,
-  AdViewScreen
+  AdViewScreen,
+  EditAd
 } from './screens'
 import { Loading, Header, Footer } from './components'
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
@@ -40,6 +41,7 @@ class App extends Component {
             <Route path="/profile" exact component={Profile} />
             <Route path="/profile/myads" exact component={MyAds} />
             <Route path="/ad/:id" exact component={AdViewScreen} />
+            <Route path="/ad/:id/edit" exact component={EditAd} />
             <Redirect to="/" />
           </Switch>
           <Footer />
