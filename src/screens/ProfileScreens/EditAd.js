@@ -26,6 +26,10 @@ class EditAd extends Component {
   state = {
     value: null
   }
+ 
+  componentWillMount(){
+    this.props.initialize(this.props.editableAd);
+  }
 
   pushSample = () => {
     let data = {
@@ -88,16 +92,66 @@ class EditAd extends Component {
           </GridList>
         </div>
         <form style={{ ...styles.flex }}>
-          <Dropzone onDrop={this.onFilesDrop}>
+          <Dropzone onDrop={this.onFilesDrop} style={styles.dropzone}>
             <div>Drag and drop files here or click to select</div>
           </Dropzone>
           <h3>Edit Ad</h3>
           <h4>Details</h4>
+
           <div style={styles.flex}>
             <Field
               name="title"
               component={FormTextField}
               floatingLabelText="Title"
+            />
+            <Field
+              name="category"
+              floatingLabelText="Category"
+              label="Category"
+              value={this.state.value}
+              component={FormSelectField}
+              onChange={this.handleChange}>
+              <MenuItem value={'Cat1'} primaryText="Cat1" />
+              <MenuItem value={'Cat2'} primaryText="Cat2" />
+              <MenuItem value={'Cat3'} primaryText="Cat3" />
+              <MenuItem value={'Cat4'} primaryText="Cat4" />
+            </Field>
+            <Field
+              name="description"
+              component={FormTextField}
+              floatingLabelText="Description"
+              multiLine={true}
+              rows={3}
+            />
+            <Field
+              name="price"
+              component={FormTextField}
+              floatingLabelText="Price"
+              type="number"
+            />
+            <Field name="itemCondition" component={FormRadioGroup}>
+              <RadioButton value={true} label="New" />
+              <RadioButton value={false} label="Used" />
+            </Field>
+            <br />
+          </div>
+
+          <div style={styles.flex}>
+            <h4>Contacts</h4>
+            <Field
+              name="location"
+              component={FormTextField}
+              floatingLabelText="Location"
+            />
+            <Field
+              name="contactName"
+              component={FormTextField}
+              floatingLabelText="Contact Name"
+            />
+            <Field
+              name="contactPhone"
+              component={FormTextField}
+              floatingLabelText="Phone"
             />
           </div>
           <RaisedButton
@@ -171,5 +225,10 @@ const styles = {
   },
   titleStyle: {
     color: '#fafafa'
+  },
+  dropzone: {
+    height: 30, 
+    width: 'auto', 
+    backgroundColor: 'orange'
   }
 }
