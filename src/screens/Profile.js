@@ -75,11 +75,11 @@ export default compose(
 const styles = {
   body: {
     backgroundColor: '#fafafa',
-    height: '100vh',
+    minHeight: '100%',
+    height: 'auto',
     margin: '0 auto',
     maxWidth: 500,
-    paddingTop: 48,
-    paddingBottom: 80
+    paddingTop: 52
   },
   container: {
     display: 'flex'

@@ -183,8 +183,10 @@ const styles = {
   body: {
     margin: '0 auto',
     maxWidth: 500,
-    marginTop: 80,
-    marginBottom: 80
+    paddingTop: 80,
+    paddingBottom: 80,
+    minHeight: '100%',
+    height: 'auto',
   },
   flex: {
     display: 'flex',

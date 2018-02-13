@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import SearchBar from 'material-ui-search-bar'
 
@@ -22,10 +23,11 @@ export default class Search extends Component {
 const styles = {
   body: {
     backgroundColor: '#6BE3CE',
-    height: '100vh',
     margin: '0 auto',
     maxWidth: 500,
-    paddingTop: 55
+    paddingTop: 52,
+    minHeight: '100%',
+    height: 'auto',
   },
   profileHeaderContainer: {
     padding: 20,

@@ -51,13 +51,14 @@ const styles = {
   body: {
     backgroundColor: '#6BE3CE',
     overflow: 'auto',
-    height: '100vh',
     margin: '0 auto',
     maxWidth: 500,
-    paddingTop: 80,
-    paddingBottom: 150,
+    paddingTop: 62,
+    paddingBottom: 62,
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    minHeight: '100%',
+    height: 'auto',
   },
   card: {
     marginTop: 10,

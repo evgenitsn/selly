@@ -93,12 +93,13 @@ export default compose(
 
 const styles = {
   outerContainer: {
-    paddingTop: 52,
-    paddingBottom: 52,
+    paddingTop: 62,
+    paddingBottom: 62,
     width: '100%',
     backgroundColor: '#6BE3CE',
-    height: '100%',
-    overflow: 'auto'
+    overflow: 'auto',
+    minHeight: '100%',
+    height: 'auto',
   },
   innerContainer: {
     margin: '0 auto',
