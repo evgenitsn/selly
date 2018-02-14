@@ -69,6 +69,9 @@ class EditAd extends Component {
     }
     const {title} = this.props.editableAd
     console.log(title)
+    if(this.props.profileUid !== this.props.editableAd.uid){
+      this.props.history.push(`/ad/${this.props.match.params.id}`)
+    }
     return (
       <div style={styles.body}>
         <div style={styles.root}>
@@ -174,6 +177,7 @@ const mapStateToProps = state => {
     firebaseAuth: state.firebase.auth,
     formValues: state.form.Edit.values,
     editableAd: state.firebase.data['editableAd'],
+    profileUid: state.firebase.auth.uid,
     uploadedFiles: state.firebase.data[filesPath]
   }
 }

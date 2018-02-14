@@ -98,7 +98,7 @@ const mapStateToProps = state => ({
 export default compose(
   connect(mapStateToProps),
   firebaseConnect((props) => {
-    if(props.location.state){
+    if(props.match.params){
       return [{ path: `ads/${props.match.params.id}`, storeAs: 'singleAd' }]
     }
   })
