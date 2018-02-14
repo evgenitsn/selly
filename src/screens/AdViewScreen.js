@@ -6,6 +6,9 @@ import { Loading } from '../components'
 import Paper from 'material-ui/Paper'
 import Chip from 'material-ui/Chip'
 import RaisedButton from 'material-ui/RaisedButton'
+import Checkbox from 'material-ui/Checkbox';
+import StarIcon from 'material-ui/svg-icons/toggle/star';
+import StarBorderIcon from 'material-ui/svg-icons/toggle/star-border';
 import { red200, blue200 } from 'material-ui/styles/colors'
 
 class AdViewScreen extends Component {
@@ -26,8 +29,18 @@ class AdViewScreen extends Component {
           <div style={styles.innerContainer}>
             <Paper style={styles.paper} zDepth={1}>
               <div>
-                <h1 style={styles.title}>{title}</h1>
                 <div style={{display: 'flex', justifyContent: 'space-between', paddingTop: 10}}>
+                  <h1 style={styles.title}>{title}</h1>
+                  <div>
+                    <Checkbox
+                      checkedIcon={<StarIcon />}
+                      uncheckedIcon={<StarBorderIcon />}
+                      style={{marginBottom: 16}}
+                      checked={false}
+                    />
+                  </div>
+                </div>
+                <div style={styles.headerContainer}>
                   <h2 style={styles.price}>{price + ' лв.'}</h2>
                   <div>{new Date(createdOn).toDateString()}</div>
                 </div>
@@ -128,5 +141,10 @@ const styles = {
     paddingBottom: 5, 
     display: 'flex',
     justifyContent: 'space-between'
+  },
+  headerContainer: {
+    display: 'flex', 
+    justifyContent: 'space-between', 
+    paddingTop: 10
   }
 }
