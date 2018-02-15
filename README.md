@@ -4,6 +4,6 @@
 ### Simple Marketplace Progressive Web App x Firebase
 
 Used Technologies
--React
--Redux
--Firebase
+- React
+- Redux
+- Firebase
