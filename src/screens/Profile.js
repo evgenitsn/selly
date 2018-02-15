@@ -46,7 +46,11 @@ class Profile extends Component {
               onClick={() => this.props.history.push('/profile/myads')}
             />
             <Divider />
-            <ListItem primaryText="Edit Profile" leftIcon={<ActionGrade />} />
+            <ListItem 
+              primaryText="Edit Profile" 
+              leftIcon={<ActionGrade />}
+              onClick={() => this.props.history.push('/profile/edit')}
+            />
             <Divider />
             <ListItem
               onClick={() => this.logout()}
