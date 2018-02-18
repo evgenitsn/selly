@@ -6,6 +6,8 @@ import { changeNavBarOption } from '../components/Footer-duck'
 import { Loading } from '../components'
 
 import Avatar from 'material-ui/Avatar'
+import Dialog from 'material-ui/Dialog'
+import FlatButton from 'material-ui/FlatButton'
 import { List, ListItem } from 'material-ui/List'
 
 import ContentInbox from 'material-ui/svg-icons/content/inbox'
@@ -19,7 +21,31 @@ class Profile extends Component {
     this.props.changeNavBarOption(0)
   }
 
+  state = {
+    open: false
+  }
+   
+  handleOpen = () => {
+    this.setState({open: true});
+  }
+
+  handleClose = () => {
+    this.setState({open: false});
+  }
+
   render() {
+    const logoutDialogActions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onClick={this.handleClose}
+      />,
+      <FlatButton
+        label="Yes, bye"
+        primary={true}
+        onClick={() => this.logout()}
+      />,
+    ]
     if (!this.props.profile.isLoaded) {
       return <Loading />
     }
@@ -53,12 +79,21 @@ class Profile extends Component {
             />
             <Divider />
             <ListItem
-              onClick={() => this.logout()}
+              onClick={() => this.handleOpen()}
               primaryText="Logout"
               leftIcon={<ContentSend />}
             />
           </List>
         </div>
+        <Dialog
+          title="Logout"
+          actions={logoutDialogActions}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={e => this.handleClose()}
+        >
+          Are you sure you wanna logout?
+        </Dialog>
       </div>
     )
   }
