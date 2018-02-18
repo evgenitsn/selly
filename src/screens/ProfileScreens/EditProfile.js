@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { firebaseConnect } from 'react-redux-firebase'
 import { Loading, DisplayCard, FormTextField } from '../../components'
+import Dialog from 'material-ui/Dialog'
+import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 import validate from '../../validate'
 
@@ -11,6 +13,9 @@ class EditProfile extends Component {
   constructor(props) {
     super(props)
     this.isLoaded = false
+    this.state = {
+      open: false,
+    }
   }
 
   componentWillReceiveProps(nextProps){
@@ -20,7 +25,7 @@ class EditProfile extends Component {
     }
   }
 
-  updateProfile(){
+  updateProfile() {
     const displayName = {displayName: this.props.formValues.displayName}
     this.props.firebase.updateProfile(displayName).then(() => {
       this.props.history.push('/profile')
@@ -29,7 +34,34 @@ class EditProfile extends Component {
     })
   }
 
+  resetPassword() {
+    console.log(this.props.profile.email)
+    this.props.firebase.resetPassword(this.props.profile.email)
+    .then(r => console.log(r, 'success'))
+    .catch(e => console.log(e))
+  }
+  
+  handleOpen = () => {
+    this.setState({open: true});
+  }
+
+  handleClose = () => {
+    this.setState({open: false});
+  }
+
   render() {
+    const resetDialogActions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onClick={this.handleClose}
+      />,
+      <FlatButton
+        label="Reset"
+        primary={true}
+        onClick={(e) => this.resetPassword(e)}
+      />,
+    ]
     const { pristine, submitting, valid } = this.props
     return (
       <div style={styles.body}>
@@ -63,6 +95,23 @@ class EditProfile extends Component {
               disabled={!valid || pristine || submitting}
               onClick={e => this.updateProfile(e)}
             />
+            <br/>
+            <RaisedButton
+              label="Reset Password"
+              backgroundColor="#e3fffd"
+              labelColor="#0a0a0a"
+              labelStyle={{ fontFamily: 'Oxygen' }}
+              onClick={e => this.handleOpen()}
+            />
+            <Dialog
+              title="Reset Password"
+              actions={resetDialogActions}
+              modal={false}
+              open={this.state.open}
+              onRequestClose={e => this.handleClose()}
+            >
+              You will be logged out and an email with reset password instructions will be send to you.
+            </Dialog>
           </form>
         </div>
       </div>
@@ -73,7 +122,7 @@ class EditProfile extends Component {
 const mapStateToProps = state => {
   return {
     formValues: state.form.EditProfile.values,
-    profile: state.firebase.profile,
+    profile: state.firebase.profile
   }
 }
 
