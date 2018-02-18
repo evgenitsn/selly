@@ -24,7 +24,10 @@ class Login extends Component {
   login = ({ email, password }) => {
     this.props.firebase
       .login({ email, password })
-      .then(res => this.props.reset())
+      .then(res => {
+        this.props.reset()
+        this.props.history.push('/')
+      })
       .catch(e => {
         this.setState({
           open: true,
@@ -43,7 +46,9 @@ class Login extends Component {
   googleLogin = () => {
     this.props.firebase
       .login({ provider: 'google', type: 'popup' })
-      .then()
+      .then(res => {
+        this.props.history.push('/')
+      })
       .catch(e => {
         this.setState({
           open: true,
