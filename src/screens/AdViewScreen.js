@@ -20,14 +20,43 @@ class AdViewScreen extends Component {
 
   toggleSaved() {
     let adId = this.props.match.params.id
-    this.props.firebase
-      .push(`users/${this.props.loggedUserUid}/saved`, adId)
-      .then(r => console.log(r))
-      .catch(e => console.log(e))
+    let isSaved = this.checkSaved()
+    if (isSaved) {
+      let keyToDelete = this.findKeyToDelete()
+      this.props.firebase.remove(`users/${this.props.loggedUserUid}/saved/${keyToDelete}`)
+    } else {
+      this.props.firebase
+        .push(`users/${this.props.loggedUserUid}/saved`, adId)
+        .then(r => console.log(r))
+        .catch(e => console.log(e))
+    }
+  }
+
+  findKeyToDelete() {
+    let keyToDelete
+    this.props.savedItemsByUser.forEach(e => {
+      if (e.value === this.props.match.params.id) {
+        keyToDelete = e.key
+      }
+    })
+    return keyToDelete
+  }
+
+  checkSaved() {
+    if (this.props.savedItemsByUser === null || this.props.savedItemsByUser === undefined) {
+      return false
+    } else {
+      let isSaved = false
+      this.props.savedItemsByUser.forEach(e => {
+        if (e.value === this.props.match.params.id) {
+          isSaved = true
+        }
+      })
+      return isSaved
+    }
   }
 
   render() {
-    console.log(this.state)
     if (!this.props.singleAd || this.props.singleAd.title === undefined) {
       return <Loading />
     } else {
@@ -54,7 +83,7 @@ class AdViewScreen extends Component {
                       checkedIcon={<StarIcon />}
                       uncheckedIcon={<StarBorderIcon />}
                       style={{ marginBottom: 16 }}
-                      checked={false}
+                      checked={this.props.savedItemsByUser !== null ? this.checkSaved() : false}
                       onClick={() => this.toggleSaved()}
                     />
                   </div>
