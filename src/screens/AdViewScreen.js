@@ -6,37 +6,56 @@ import { Loading } from '../components'
 import Paper from 'material-ui/Paper'
 import Chip from 'material-ui/Chip'
 import RaisedButton from 'material-ui/RaisedButton'
-import Checkbox from 'material-ui/Checkbox';
-import StarIcon from 'material-ui/svg-icons/toggle/star';
-import StarBorderIcon from 'material-ui/svg-icons/toggle/star-border';
+import Checkbox from 'material-ui/Checkbox'
+import StarIcon from 'material-ui/svg-icons/toggle/star'
+import StarBorderIcon from 'material-ui/svg-icons/toggle/star-border'
 import { red200, blue200 } from 'material-ui/styles/colors'
 
 class AdViewScreen extends Component {
-
   deleteItem() {
+    this.props.firebase.remove(`ads/${this.props.match.params.id}`).then(res => {
+      this.props.history.push('/')
+    })
+  }
+
+  toggleSaved() {
+    let adId = this.props.match.params.id
     this.props.firebase
-      .remove(`ads/${this.props.match.params.id}`)
-      .then(res => {this.props.history.push('/')})
+      .push(`users/${this.props.loggedUserUid}/saved`, adId)
+      .then(r => console.log(r))
+      .catch(e => console.log(e))
   }
 
   render() {
-    if(!this.props.singleAd || this.props.singleAd.title === undefined) {
+    console.log(this.state)
+    if (!this.props.singleAd || this.props.singleAd.title === undefined) {
       return <Loading />
     } else {
-      let { category, contactName, createdOn, description, itemCondition, location, price, title, contactPhone } = this.props.singleAd
+      let {
+        category,
+        contactName,
+        createdOn,
+        description,
+        itemCondition,
+        location,
+        price,
+        title,
+        contactPhone
+      } = this.props.singleAd
       return (
         <div style={styles.outerContainer}>
           <div style={styles.innerContainer}>
             <Paper style={styles.paper} zDepth={1}>
               <div>
-                <div style={{display: 'flex', justifyContent: 'space-between', paddingTop: 10}}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: 10 }}>
                   <h1 style={styles.title}>{title}</h1>
                   <div>
                     <Checkbox
                       checkedIcon={<StarIcon />}
                       uncheckedIcon={<StarBorderIcon />}
-                      style={{marginBottom: 16}}
+                      style={{ marginBottom: 16 }}
                       checked={false}
+                      onClick={() => this.toggleSaved()}
                     />
                   </div>
                 </div>
@@ -46,43 +65,36 @@ class AdViewScreen extends Component {
                 </div>
               </div>
               <div style={styles.chipsContainer}>
-                <Chip
-                  backgroundColor={'#e2e1ff'}
-                  style={styles.chip} >
+                <Chip backgroundColor={'#e2e1ff'} style={styles.chip}>
                   {'Category: ' + category}
                 </Chip>
-                <Chip
-                  backgroundColor={itemCondition ? '#e2e1ff' : '#EF9A9A'}
-                  style={styles.chip} >
+                <Chip backgroundColor={itemCondition ? '#e2e1ff' : '#EF9A9A'} style={styles.chip}>
                   {itemCondition ? 'New' : 'Used'}
                 </Chip>
               </div>
             </Paper>
             <Paper style={styles.paper} zDepth={1}>
-              <img style={styles.image} src={require('../assets/Varna.jpg')}/>
+              <img style={styles.image} src={require('../assets/Varna.jpg')} />
             </Paper>
             <Paper style={styles.paper} zDepth={1}>
               <div>{'Description: ' + description}</div>
-              <br/>
+              <br />
               <div>{'Location: ' + location}</div>
-              <br/>
+              <br />
               <div>{'Contacts: ' + contactName}</div>
-              <br/>
+              <br />
               <div>{'Phone: ' + contactPhone}</div>
             </Paper>
-            {this.props.loggedUserUid === this.props.singleAd.uid ? 
-              <Paper style={{...styles.paper, display: 'flex', justifyContent: 'center'}} zDepth={1}>
-                <RaisedButton
-                  onClick={() => this.deleteItem()}
-                  label="Delete"
-                  backgroundColor={red200}
-                />
+            {this.props.loggedUserUid === this.props.singleAd.uid ? (
+              <Paper style={{ ...styles.paper, display: 'flex', justifyContent: 'center' }} zDepth={1}>
+                <RaisedButton onClick={() => this.deleteItem()} label="Delete" backgroundColor={red200} />
                 <RaisedButton
                   onClick={() => this.props.history.push(`/ad/${this.props.match.params.id}/edit`)}
                   label="Edit"
                   backgroundColor={blue200}
                 />
-              </Paper> : null}
+              </Paper>
+            ) : null}
           </div>
         </div>
       )
@@ -92,14 +104,24 @@ class AdViewScreen extends Component {
 
 const mapStateToProps = state => ({
   singleAd: state.firebase.data['singleAd'],
-  loggedUserUid: state.firebase.auth.uid
+  loggedUserUid: state.firebase.auth.uid,
+  savedItemsByUser: state.firebase.ordered.savedItemsByUser
 })
 
 export default compose(
   connect(mapStateToProps),
-  firebaseConnect((props) => {
-    if(props.match.params){
-      return [{ path: `ads/${props.match.params.id}`, storeAs: 'singleAd' }]
+  firebaseConnect(props => {
+    if (props.match.params) {
+      return [
+        {
+          path: `ads/${props.match.params.id}`,
+          storeAs: 'singleAd'
+        },
+        {
+          path: `users/${props.loggedUserUid}/saved`,
+          storeAs: 'savedItemsByUser'
+        }
+      ]
     }
   })
 )(AdViewScreen)
@@ -112,7 +134,7 @@ const styles = {
     backgroundColor: '#6BE3CE',
     overflow: 'auto',
     minHeight: '100%',
-    height: 'auto',
+    height: 'auto'
   },
   innerContainer: {
     margin: '0 auto',
@@ -137,14 +159,14 @@ const styles = {
     margin: 4
   },
   chipsContainer: {
-    paddingTop: 15, 
-    paddingBottom: 5, 
+    paddingTop: 15,
+    paddingBottom: 5,
     display: 'flex',
     justifyContent: 'space-between'
   },
   headerContainer: {
-    display: 'flex', 
-    justifyContent: 'space-between', 
+    display: 'flex',
+    justifyContent: 'space-between',
     paddingTop: 10
   }
 }
