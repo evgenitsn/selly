@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { compose } from 'redux'
 import { connect } from 'react-redux'
-import { firebaseConnect } from 'react-redux-firebase'
+import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 import { Loading } from '../components'
 import Paper from 'material-ui/Paper'
 import Chip from 'material-ui/Chip'
@@ -43,7 +43,7 @@ class AdViewScreen extends Component {
   }
 
   checkSaved() {
-    if (this.props.savedItemsByUser === null || this.props.savedItemsByUser === undefined) {
+    if (isEmpty(this.props.savedItemsByUser)) {
       return false
     } else {
       let isSaved = false
@@ -57,7 +57,7 @@ class AdViewScreen extends Component {
   }
 
   render() {
-    if (!this.props.singleAd || this.props.singleAd.title === undefined) {
+    if (!isLoaded(this.props.singleAd)) {
       return <Loading />
     } else {
       let {
