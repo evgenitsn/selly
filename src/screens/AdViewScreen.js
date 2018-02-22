@@ -26,7 +26,7 @@ class AdViewScreen extends Component {
       this.props.firebase.remove(`users/${this.props.loggedUserUid}/saved/${keyToDelete}`)
     } else {
       this.props.firebase
-        .push(`users/${this.props.loggedUserUid}/saved`, adId)
+        .push(`users/${this.props.loggedUserUid}/saved`, {adId})
         .then(r => console.log(r))
         .catch(e => console.log(e))
     }
@@ -35,7 +35,7 @@ class AdViewScreen extends Component {
   findKeyToDelete() {
     let keyToDelete
     this.props.savedItemsByUser.forEach(e => {
-      if (e.value === this.props.match.params.id) {
+      if (e.value.adId === this.props.match.params.id) {
         keyToDelete = e.key
       }
     })
@@ -48,7 +48,7 @@ class AdViewScreen extends Component {
     } else {
       let isSaved = false
       this.props.savedItemsByUser.forEach(e => {
-        if (e.value === this.props.match.params.id) {
+        if (e.value.adId === this.props.match.params.id) {
           isSaved = true
         }
       })

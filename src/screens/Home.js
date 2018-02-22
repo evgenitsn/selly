@@ -29,8 +29,8 @@ class Home extends Component {
 }
 
 export default compose(
-  connect(state => ({ ads: state.firebase.data.ads })),
-  firebaseConnect([{ path: 'ads' }])
+  connect(state => ({ ads: state.firebase.data.allAds })),
+  firebaseConnect([{ path: 'ads', storeAs: 'allAds' }])
 )(Home)
 
 const styles = {

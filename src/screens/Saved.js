@@ -11,9 +11,9 @@ class Saved extends Component {
       return 'Todo list is empty. Please create UX Component for that'
     } else {
       return Object.keys(savedItemsByUser).map((key, id) => {
-        const navigateParams = { pathname: `/ad/${key}`, state: { ad: { key, details: savedItemsByUser[key] } } }
+        const navigateParams = { pathname: `/ad/${key}`, state: { ad: { key, details: savedItemsByUser[key].adId } } }
         return (
-          <div key={id}>{savedItemsByUser[key]}</div>
+          <div key={id}>{savedItemsByUser[key].adId}</div>
           //<DisplayCard ads={savedItemsByUser} key={key} adKey={key} onClick={() => this.props.history.push(navigateParams)}/>
         )
       })
@@ -22,6 +22,7 @@ class Saved extends Component {
   
 
   render() {
+    console.log(this.props)
     const { savedItemsByUser } = this.props
     if (!isLoaded(savedItemsByUser)) {
       return <Loading />
@@ -30,21 +31,26 @@ class Saved extends Component {
   }
 }
 
+const populates = [
+  { child: 'adId', root: 'ads' }
+]
+
 const mapStateToProps = state => ({
   savedItemsByUser: state.firebase.profile.saved,
-  userId: state.firebase.auth.uid
+  userId: state.firebase.auth.uid,
 })
 
 export default compose(
+  connect(mapStateToProps),
   firebaseConnect(props => {
     return [
       {
         path: `users/${props.userId}/saved`,
         storeAs: 'savedItemsByUser',
-      }
+      },
+      { path: `users/${props.userId}/saved`, populates }
     ]
-  }),
-  connect(mapStateToProps)
+  })
 )(Saved)
 
 const styles = {
