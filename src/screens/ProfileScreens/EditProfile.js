@@ -3,11 +3,15 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { firebaseConnect } from 'react-redux-firebase'
-import { Loading, DisplayCard, FormTextField } from '../../components'
+import { Loading, FormTextField } from '../../components'
+import Avatar from 'material-ui/Avatar'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 import validate from '../../validate'
+
+import Dropzone from 'react-dropzone'
+const filesPath = 'avatars'
 
 class EditProfile extends Component {
   constructor(props) {
@@ -32,6 +36,26 @@ class EditProfile extends Component {
     }).catch((e) => {
       console.log(e)
     })
+  }
+
+  onFilesDrop = files => {
+    // uploadFiles(storagePath, files, dbPath)
+    this.props.firebase
+      .uploadFiles(filesPath, files, filesPath)
+      .then(r => {
+        let downloadUrl = r[0].File.downloadURL
+        this.props.firebase
+          .updateProfile({ avatarUrl: downloadUrl })
+          .then(r => {
+            //Success snackbar
+          })
+          .catch(e => {
+            //Error snackbar (e)
+          })
+      })
+      .catch(e => {
+        //Error snackbar (e)
+      })
   }
 
   resetPassword() {
@@ -63,11 +87,22 @@ class EditProfile extends Component {
       />,
     ]
     const { pristine, submitting, valid } = this.props
+    if(!this.props.profile.isLoaded){
+      return <Loading/>
+    }
     return (
       <div style={styles.body}>
         <div style={{ ...styles.flex }}>
           <form style={{ ...styles.flex }}>
-            <div style={styles.editLabel}>Edit Profile</div>
+            <div style={styles.editLabel}>edit profile</div>
+            <Dropzone onDrop={this.onFilesDrop} style={styles.dropzone}>
+              {this.props.profile.avatarUrl ? (
+                <Avatar size={100} src={this.props.profile.avatarUrl} />
+              ) : (
+                <Avatar size={100} src={require('../../assets/Avatar.png')} />
+              )}
+              <p style={styles.editProfilePhoto}>change photo</p>
+            </Dropzone>
             <Field
               name="displayName"
               component={FormTextField}
@@ -122,13 +157,14 @@ class EditProfile extends Component {
 const mapStateToProps = state => {
   return {
     formValues: state.form.EditProfile.values,
-    profile: state.firebase.profile
+    profile: state.firebase.profile,
+    uploadedFiles: state.firebase.data[filesPath]
   }
 }
 
 EditProfile = compose(
   connect(mapStateToProps, {}),
-  firebaseConnect()
+  firebaseConnect([filesPath])
 )(EditProfile)
 export default reduxForm({ form: 'EditProfile', validate })(EditProfile)
 
@@ -158,6 +194,14 @@ const styles = {
     color: '#E3FFFD'
   },
   inputStyle: {
+    color: 'white',
+    fontFamily: 'Oxygen'
+  },
+  dropzone: {
+    height: 'auto',
+    width: 'auto'
+  },
+  editProfilePhoto: {
     color: 'white',
     fontFamily: 'Oxygen'
   }

@@ -15,36 +15,51 @@ import ActionGrade from 'material-ui/svg-icons/action/grade'
 import ContentSend from 'material-ui/svg-icons/content/send'
 import Divider from 'material-ui/Divider'
 
+import Dropzone from 'react-dropzone'
+const filesPath = 'avatars'
+
 class Profile extends Component {
   logout = () => {
     this.props.firebase.logout()
     this.props.changeNavBarOption(0)
   }
 
+  onFilesDrop = files => {
+    // uploadFiles(storagePath, files, dbPath)
+    this.props.firebase
+      .uploadFiles(filesPath, files, filesPath)
+      .then(r => {
+        let downloadUrl = r[0].File.downloadURL
+        this.props.firebase
+          .updateProfile({ avatarUrl: downloadUrl })
+          .then(r => {
+            //Success snackbar
+          })
+          .catch(e => {
+            //Error snackbar (e)
+          })
+      })
+      .catch(e => {
+        //Error snackbar (e)
+      })
+  }
+
   state = {
     open: false
   }
-   
+
   handleOpen = () => {
-    this.setState({open: true});
+    this.setState({ open: true })
   }
 
   handleClose = () => {
-    this.setState({open: false});
+    this.setState({ open: false })
   }
 
   render() {
     const logoutDialogActions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onClick={this.handleClose}
-      />,
-      <FlatButton
-        label="Yes, bye"
-        primary={true}
-        onClick={() => this.logout()}
-      />,
+      <FlatButton label="Cancel" primary={true} onClick={this.handleClose} />,
+      <FlatButton label="Yes, bye" primary={true} onClick={() => this.logout()} />
     ]
     if (!this.props.profile.isLoaded) {
       return <Loading />
@@ -55,7 +70,9 @@ class Profile extends Component {
           {this.props.profile.avatarUrl ? (
             <Avatar size={80} src={this.props.profile.avatarUrl} />
           ) : (
-            <Avatar size={80} src={require('../assets/Avatar.png')} />
+            <Dropzone onDrop={this.onFilesDrop} style={styles.dropzone}>
+              <Avatar size={80} src={require('../assets/Avatar.png')} />
+            </Dropzone>
           )}
           <div style={{ marginLeft: 20, color: '#fafafa' }}>
             <div>{this.props.profile.displayName}</div>
@@ -64,25 +81,20 @@ class Profile extends Component {
           </div>
         </div>
         <div style={styles.container}>
-          <List
-            style={{ margin: 20, width: '100%', backgroundColor: '#fafafa' }}>
+          <List style={{ margin: 20, width: '100%', backgroundColor: '#fafafa' }}>
             <ListItem
               primaryText="My ads"
               leftIcon={<ContentInbox />}
               onClick={() => this.props.history.push('/profile/myads')}
             />
             <Divider />
-            <ListItem 
-              primaryText="Edit Profile" 
+            <ListItem
+              primaryText="Edit Profile"
               leftIcon={<ActionGrade />}
               onClick={() => this.props.history.push('/profile/edit')}
             />
             <Divider />
-            <ListItem
-              onClick={() => this.handleOpen()}
-              primaryText="Logout"
-              leftIcon={<ContentSend />}
-            />
+            <ListItem onClick={() => this.handleOpen()} primaryText="Logout" leftIcon={<ContentSend />} />
           </List>
         </div>
         <Dialog
@@ -102,14 +114,12 @@ class Profile extends Component {
 const mapStateToProps = state => {
   return {
     profile: state.firebase.profile,
-    footer: state.footerReducer
+    footer: state.footerReducer,
+    uploadedFiles: state.firebase.data[filesPath]
   }
 }
 
-export default compose(
-  connect(mapStateToProps, { changeNavBarOption }),
-  firebaseConnect()
-)(Profile)
+export default compose(connect(mapStateToProps, { changeNavBarOption }), firebaseConnect([filesPath]))(Profile)
 
 const styles = {
   body: {
@@ -132,5 +142,9 @@ const styles = {
   },
   registerButton: {
     margin: 12
+  },
+  dropzone: {
+    height: 'auto',
+    width: 'auto'
   }
 }
