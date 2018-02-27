@@ -205,7 +205,8 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100%',
-    height: 'auto'
+    height: 'auto',
+    width: '100%'
   },
   flex: {
     display: 'flex',

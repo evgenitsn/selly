@@ -28,6 +28,7 @@ const styles = {
     paddingTop: 52,
     minHeight: '100%',
     height: 'auto',
+    width: '100%'
   },
   profileHeaderContainer: {
     padding: 20,

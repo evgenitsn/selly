@@ -65,6 +65,7 @@ const styles = {
     flexDirection: 'column',
     minHeight: '100%',
     height: 'auto',
+    width: '100%'
   },
   card: {
     marginTop: 10,

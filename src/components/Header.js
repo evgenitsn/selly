@@ -46,7 +46,8 @@ const styles = {
     height: 52,
     top: 0,
     overflow: 'hidden',
-    backgroundColor: '#fafafa'
+    backgroundColor: '#fafafa',
+    maxWidth: 500
   },
   titleStyle: {
     fontFamily: 'Oxygen',

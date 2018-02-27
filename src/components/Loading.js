@@ -21,7 +21,9 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     height: '100vh',
-    backgroundColor: '#6BE3CE'
+    backgroundColor: '#6BE3CE',
+    maxWidth: 500,
+    width: '100%'
   },
   heading: {
     marginBottom: 40

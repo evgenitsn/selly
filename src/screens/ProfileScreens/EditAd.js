@@ -200,6 +200,7 @@ const styles = {
     paddingBottom: 80,
     minHeight: '100%',
     height: 'auto',
+    width: '100%'
   },
   flex: {
     display: 'flex',

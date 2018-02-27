@@ -146,7 +146,8 @@ const styles = {
     height: 'auto',
     margin: '0 auto',
     maxWidth: 500,
-    paddingTop: 52
+    paddingTop: 52,
+    width: '100%'
   },
   container: {
     display: 'flex'
