@@ -6,6 +6,7 @@ import { Loading } from '../components'
 import Paper from 'material-ui/Paper'
 import Chip from 'material-ui/Chip'
 import RaisedButton from 'material-ui/RaisedButton'
+import { GridList, GridTile } from 'material-ui/GridList'
 import Checkbox from 'material-ui/Checkbox'
 import StarIcon from 'material-ui/svg-icons/toggle/star'
 import StarBorderIcon from 'material-ui/svg-icons/toggle/star-border'
@@ -13,7 +14,8 @@ import { red200, blue200 } from 'material-ui/styles/colors'
 
 class AdViewScreen extends Component {
   deleteItem() {
-    this.props.firebase.remove(`ads/${this.props.match.params.id}`).then(res => {
+    this.props.firebase.remove(`ads/${this.props.match.params.id}`)
+    .then(res => {
       this.props.history.push('/')
     })
   }
@@ -26,7 +28,7 @@ class AdViewScreen extends Component {
       this.props.firebase.remove(`users/${this.props.loggedUserUid}/saved/${keyToDelete}`)
     } else {
       this.props.firebase
-        .push(`users/${this.props.loggedUserUid}/saved`, {adId})
+        .push(`users/${this.props.loggedUserUid}/saved`, { adId })
         .then(r => console.log(r))
         .catch(e => console.log(e))
     }
@@ -53,6 +55,28 @@ class AdViewScreen extends Component {
         }
       })
       return isSaved
+    }
+  }
+
+  renderFileTile = (file, key) => {
+    return (
+      <GridTile key={key}>
+        <img src={file} alt={key} />
+      </GridTile>
+    )
+  }
+
+  renderFilesPreview = () => {
+    if (this.props.singleAd.downloadUrls) {
+      return (
+        <div style={styles.root}>
+          <GridList style={styles.gridList} cols={2.2}>
+            {this.props.singleAd.downloadUrls.map((file, key) => this.renderFileTile(file, key))}
+          </GridList>
+        </div>
+      )
+    } else {
+      return <div>No images</div>
     }
   }
 
@@ -103,7 +127,7 @@ class AdViewScreen extends Component {
               </div>
             </Paper>
             <Paper style={styles.paper} zDepth={1}>
-              <img style={styles.image} src={require('../assets/Varna.jpg')} />
+              {this.renderFilesPreview()}
             </Paper>
             <Paper style={styles.paper} zDepth={1}>
               <div>{'Description: ' + description}</div>
@@ -197,5 +221,16 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     paddingTop: 10
-  }
+  },
+  root: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+  },
+  gridList: {
+    display: 'flex',
+    flexWrap: 'nowrap',
+    overflowX: 'auto',
+  },
 }
