@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { Field, reduxForm } from 'redux-form'
 import { firebaseConnect } from 'react-redux-firebase'
-import { Loading, FormTextField } from '../../components'
+import { Loading, FormTextField, Snackbar } from '../../components'
 import Avatar from 'material-ui/Avatar'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
@@ -18,24 +18,33 @@ class EditProfile extends Component {
     super(props)
     this.isLoaded = false
     this.state = {
-      open: false,
+      snackbarOpen: false,
+      dialogOpen: false,
+      message: ''
     }
   }
 
-  componentWillReceiveProps(nextProps){
-    if(nextProps.profile.isLoaded && !this.isLoaded){
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.profile.isLoaded && !this.isLoaded) {
       this.props.initialize(nextProps.profile)
       this.isLoaded = true
     }
   }
 
   updateProfile() {
-    const displayName = {displayName: this.props.formValues.displayName}
-    this.props.firebase.updateProfile(displayName).then(() => {
-      this.props.history.push('/profile')
-    }).catch((e) => {
-      console.log(e)
-    })
+    const displayName = { displayName: this.props.formValues.displayName }
+    this.props.firebase
+      .updateProfile(displayName)
+      .then(() => {
+        this.props.history.push('/profile')
+      })
+      .catch(e => {
+        console.log(e)
+        this.setState({
+          snackbarOpen: true,
+          message: e.code
+        })
+      })
   }
 
   onFilesDrop = files => {
@@ -47,48 +56,62 @@ class EditProfile extends Component {
         this.props.firebase
           .updateProfile({ avatarUrl: downloadUrl })
           .then(r => {
-            //Success snackbar
+            this.setState({
+              snackbarOpen: true,
+              message: 'Avatar is updated.'
+            })
           })
           .catch(e => {
-            //Error snackbar (e)
+            this.setState({
+              snackbarOpen: true,
+              message: e.code
+            })
           })
       })
       .catch(e => {
-        //Error snackbar (e)
+        this.setState({
+          snackbarOpen: true,
+          message: e.code
+        })
       })
   }
 
   resetPassword() {
     console.log(this.props.profile.email)
-    this.props.firebase.resetPassword(this.props.profile.email)
-    .then(r => console.log(r, 'success'))
-    .catch(e => console.log(e))
+    this.props.firebase
+      .resetPassword(this.props.profile.email)
+      .then(r => {
+        this.setState({
+          snackbarOpen: true,
+          message: 'Password is resetted.'
+        })
+        console.log(r, 'success')
+      })
+      .catch(e => {
+        this.setState({
+          snackbarOpen: true,
+          message: e.code
+        })
+        console.log(e)
+      })
   }
-  
+
   handleOpen = () => {
-    this.setState({open: true});
+    this.setState({ dialogOpen: true })
   }
 
   handleClose = () => {
-    this.setState({open: false});
+    this.setState({ dialogOpen: false })
   }
 
   render() {
     const resetDialogActions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onClick={this.handleClose}
-      />,
-      <FlatButton
-        label="Reset"
-        primary={true}
-        onClick={(e) => this.resetPassword(e)}
-      />,
+      <FlatButton label="Cancel" primary={true} onClick={this.handleClose} />,
+      <FlatButton label="Reset" primary={true} onClick={e => this.resetPassword(e)} />
     ]
     const { pristine, submitting, valid } = this.props
-    if(!this.props.profile.isLoaded){
-      return <Loading/>
+    if (!this.props.profile.isLoaded) {
+      return <Loading />
     }
     return (
       <div style={styles.body}>
@@ -101,13 +124,13 @@ class EditProfile extends Component {
               ) : (
                 <Avatar size={100} src={require('../../assets/Avatar.png')} />
               )}
-              <p style={styles.editProfilePhoto}>change photo</p>
+              <p style={styles.editProfilePhoto}>change avatar</p>
             </Dropzone>
             <Field
               name="displayName"
               component={FormTextField}
               floatingLabelText="full name"
-              errorStyle={{ fontFamily: 'Oxygen'}}
+              errorStyle={{ fontFamily: 'Oxygen' }}
               inputStyle={styles.inputStyle}
               floatingLabelStyle={styles.inputStyle}
             />
@@ -116,7 +139,7 @@ class EditProfile extends Component {
               component={FormTextField}
               floatingLabelText="email"
               disabled
-              errorStyle={{ fontFamily: 'Oxygen'}}
+              errorStyle={{ fontFamily: 'Oxygen' }}
               inputStyle={styles.inputStyle}
               floatingLabelStyle={styles.inputStyle}
             />
@@ -130,7 +153,7 @@ class EditProfile extends Component {
               disabled={!valid || pristine || submitting}
               onClick={e => this.updateProfile(e)}
             />
-            <br/>
+            <br />
             <RaisedButton
               label="Reset Password"
               backgroundColor="#e3fffd"
@@ -142,11 +165,17 @@ class EditProfile extends Component {
               title="Reset Password"
               actions={resetDialogActions}
               modal={false}
-              open={this.state.open}
+              open={this.state.dialogOpen}
               onRequestClose={e => this.handleClose()}
             >
               You will be logged out and an email with reset password instructions will be send to you.
             </Dialog>
+            <Snackbar
+              open={this.state.snackbarOpen}
+              message={this.state.message}
+              customStyle={{marginBottom:50}}
+              onActionClick={() => this.setState({ snackbarOpen: false })}
+            />
           </form>
         </div>
       </div>
@@ -162,10 +191,7 @@ const mapStateToProps = state => {
   }
 }
 
-EditProfile = compose(
-  connect(mapStateToProps, {}),
-  firebaseConnect([filesPath])
-)(EditProfile)
+EditProfile = compose(connect(mapStateToProps, {}), firebaseConnect([filesPath]))(EditProfile)
 export default reduxForm({ form: 'EditProfile', validate })(EditProfile)
 
 const styles = {
@@ -179,7 +205,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100%',
-    height: 'auto',
+    height: 'auto'
   },
   flex: {
     display: 'flex',

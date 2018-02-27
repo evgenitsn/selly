@@ -3,7 +3,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { firebaseConnect } from 'react-redux-firebase'
 import { changeNavBarOption } from '../components/Footer-duck'
-import { Loading } from '../components'
+import { Loading, Snackbar } from '../components'
 
 import Avatar from 'material-ui/Avatar'
 import Dialog from 'material-ui/Dialog'
@@ -19,6 +19,13 @@ import Dropzone from 'react-dropzone'
 const filesPath = 'avatars'
 
 class Profile extends Component {
+
+  state = {
+    dialogOpen: false,
+    snackbarOpen: false,
+    message: ''
+  }
+
   logout = () => {
     this.props.firebase.logout()
     this.props.changeNavBarOption(0)
@@ -33,27 +40,32 @@ class Profile extends Component {
         this.props.firebase
           .updateProfile({ avatarUrl: downloadUrl })
           .then(r => {
-            //Success snackbar
+            this.setState({
+              open: true,
+              message: "Avatar is updated."
+            })
           })
           .catch(e => {
-            //Error snackbar (e)
+            this.setState({
+              open: true,
+              message: e.code
+            })
           })
       })
       .catch(e => {
-        //Error snackbar (e)
+        this.setState({
+          open: true,
+          message: e.code
+        })
       })
   }
 
-  state = {
-    open: false
-  }
-
   handleOpen = () => {
-    this.setState({ open: true })
+    this.setState({ dialogOpen: true })
   }
 
   handleClose = () => {
-    this.setState({ open: false })
+    this.setState({ dialogOpen: false })
   }
 
   render() {
@@ -101,11 +113,17 @@ class Profile extends Component {
           title="Logout"
           actions={logoutDialogActions}
           modal={false}
-          open={this.state.open}
+          open={this.state.dialogOpen}
           onRequestClose={e => this.handleClose()}
         >
           Are you sure you wanna logout?
         </Dialog>
+        <Snackbar
+          open={this.state.snackbarOpen}
+          message={this.state.message}
+          customStyle={{marginBottom:50}}
+          onActionClick={() => this.setState({ snackbarOpen: false })}
+        />
       </div>
     )
   }

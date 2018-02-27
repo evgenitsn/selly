@@ -25,6 +25,10 @@ class Login extends Component {
     this.props.firebase
       .login({ email, password })
       .then(res => {
+        this.setState({
+          open: true,
+          message: 'Logged in.'
+        })
         this.props.reset()
         this.props.history.push('/')
       })
@@ -34,9 +38,7 @@ class Login extends Component {
           message: e.code
         })
         if (e.code === 'auth/user-not-found') {
-          console.log(
-            'There is no user record corresponding to this identifier. The user may have been deleted.'
-          )
+          console.log('There is no user record corresponding to this identifier. The user may have been deleted.')
         } else {
           console.log('Unexpected Error: ', e)
         }
@@ -46,8 +48,13 @@ class Login extends Component {
   googleLogin = () => {
     this.props.firebase
       .login({ provider: 'google', type: 'popup' })
-      .then(res => {
+      .then(res => { 
+        this.setState({
+          open: true,
+          message: 'Logged in.'
+        })
         this.props.history.push('/')
+       
       })
       .catch(e => {
         this.setState({
@@ -55,9 +62,7 @@ class Login extends Component {
           message: e.code
         })
         if (e.code === 'auth/user-not-found') {
-          console.log(
-            'There is no user record corresponding to this identifier. The user may have been deleted.'
-          )
+          console.log('There is no user record corresponding to this identifier. The user may have been deleted.')
         } else {
           console.log('Unexpected Error: ', e)
         }
@@ -79,7 +84,8 @@ class Login extends Component {
           ...styles.flex,
           ...styles.body,
           justifyContent: 'space-evenly'
-        }}>
+        }}
+      >
         <div style={{ ...styles.flex }}>
           <h1 style={styles.title}>selly</h1>
         </div>
