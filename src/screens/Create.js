@@ -89,7 +89,7 @@ class Create extends Component {
         </div>
       )
     } else {
-      return <div>No images added.</div>
+      return <div style={{ textAlign: 'center', marginBottom: '30px' }}>No images added.</div>
     }
   }
 
@@ -97,7 +97,6 @@ class Create extends Component {
   // Add Stepper for the ad
 
   render() {
-    console.log(this.state)
     const { pristine, submitting, valid } = this.props
     if (this.state.success) {
       return <CreatedAd />
@@ -144,9 +143,9 @@ class Create extends Component {
               <br />
             </div>
           </div>
-          
+
           {this.renderFilesPreview()}
-          
+
           <div style={styles.flex}>
             <div style={styles.flex}>
               <h4>Contacts</h4>
@@ -163,7 +162,7 @@ class Create extends Component {
               backgroundColor={green500}
               labelColor="#fafafa"
             />
-            </div>
+          </div>
         </form>
       </div>
     )
@@ -218,7 +217,7 @@ const styles = {
   gridList: {
     display: 'flex',
     flexWrap: 'nowrap',
-    overflowX: 'auto',
+    overflowX: 'auto'
   },
   titleStyle: {
     color: '#fafafa'
