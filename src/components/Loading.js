@@ -22,7 +22,7 @@ const styles = {
     alignItems: 'center',
     height: '100vh',
     backgroundColor: '#6BE3CE',
-    maxWidth: 500,
+    // maxWidth: 500,
     width: '100%'
   },
   heading: {

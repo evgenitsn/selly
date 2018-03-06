@@ -52,7 +52,7 @@ const styles = {
     backgroundColor: '#6BE3CE',
     overflow: 'auto',
     margin: '0 auto',
-    maxWidth: 500,
+    // maxWidth: 500,
     paddingTop: 62,
     paddingBottom: 62,
     display: 'flex',

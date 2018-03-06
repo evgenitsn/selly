@@ -52,7 +52,7 @@ class Search extends Component {
           onRequestSearch={() => null}
           onChange={evt => this.updateInputValue(evt)}
           style={{
-            maxWidth: 800,
+            // maxWidth: 800,
             margin: 15
           }}
         />
@@ -72,9 +72,13 @@ export default compose(
 const styles = {
   body: {
     backgroundColor: '#6BE3CE',
+    overflow: 'auto',
     margin: '0 auto',
-    maxWidth: 500,
-    paddingTop: 52,
+    // maxWidth: 500,
+    paddingTop: 62,
+    paddingBottom: 62,
+    display: 'flex',
+    flexDirection: 'column',
     minHeight: '100%',
     height: 'auto',
     width: '100%'

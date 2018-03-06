@@ -145,7 +145,7 @@ const styles = {
     minHeight: '100%',
     height: 'auto',
     margin: '0 auto',
-    maxWidth: 500,
+    // maxWidth: 500,
     paddingTop: 52,
     width: '100%'
   },

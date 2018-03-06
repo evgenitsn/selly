@@ -175,7 +175,7 @@ export default reduxForm({ form: 'Edit', validate })(EditAd)
 const styles = {
   body: {
     margin: '0 auto',
-    maxWidth: 500,
+    // maxWidth: 500,
     paddingTop: 80,
     paddingBottom: 80,
     minHeight: '100%',

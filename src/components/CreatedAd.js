@@ -14,7 +14,7 @@ const styles = {
   body: {
     height: '100vh',
     margin: '0 auto',
-    maxWidth: 500,
+    // maxWidth: 500,
     paddingTop: 55
   }
 }
