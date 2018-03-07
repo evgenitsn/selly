@@ -12,7 +12,7 @@ import { GridList, GridTile } from 'material-ui/GridList'
 import IconButton from 'material-ui/IconButton'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 
-import { FormTextField, FormSelectField, FormRadioGroup, CreatedAd } from '../components'
+import { FormTextField, FormSelectField, FormRadioGroup, CreatedAd, Loading } from '../components'
 
 import validate from '../validate'
 import { green500 } from 'material-ui/styles/colors'
@@ -27,10 +27,12 @@ class Create extends Component {
   state = {
     value: null,
     success: false,
-    selectedFiles: []
+    selectedFiles: [],
+    loading: false
   }
 
   pushSample = () => {
+    this.setState({ loading: true })
     let data = {
       ...this.props.formValues,
       uid: this.props.firebaseAuth.uid,
@@ -38,16 +40,29 @@ class Create extends Component {
       downloadUrls: []
     }
     let files = this.state.selectedFiles
-    this.props.firebase.uploadFiles(filesPath, files, filesPath).then(uploadedFiles => {
-      uploadedFiles.forEach(file => {
-        data.downloadUrls.push(file.File.downloadURL)
-      })
+    this.props.firebase
+      .uploadFiles(filesPath, files, filesPath)
+      .then(uploadedFiles => {
+        uploadedFiles.forEach(file => {
+          data.downloadUrls.push(file.File.downloadURL)
+        })
 
-      this.props.firebase.push('ads', data).then(res => {
-        this.setState({ success: true })
-        this.props.reset()
+        this.props.firebase
+          .push('ads', data)
+          .then(res => {
+            this.setState({ success: true, loading: false })
+            this.props.reset()
+            this.props.history.push(`/ad/${res.path.pieces_[1]}`)
+          })
+          .catch(err => {
+            this.setState({ loading: false })
+            console.log(err)
+          })
       })
-    })
+      .catch(err => {
+        this.setState({ loading: false })
+        console.log(err)
+      })
   }
 
   onFilesDrop = files => {
@@ -98,8 +113,8 @@ class Create extends Component {
 
   render() {
     const { pristine, submitting, valid } = this.props
-    if (this.state.success) {
-      return <CreatedAd />
+    if (this.state.loading) {
+      return <Loading message={'Creating the ad'} />
     }
     return (
       <div style={styles.body}>
@@ -130,8 +145,8 @@ class Create extends Component {
               />
               <Field name="price" component={FormTextField} floatingLabelText="Price" type="number" />
               <Field name="itemCondition" component={FormRadioGroup}>
-                <RadioButton value={true} label="New" />
-                <RadioButton value={false} label="Used" />
+                <RadioButton value={'true'} label="New" />
+                <RadioButton value={'false'} label="Used" />
               </Field>
               <br />
             </div>
@@ -172,8 +187,7 @@ class Create extends Component {
 const mapStateToProps = state => {
   return {
     firebaseAuth: state.firebase.auth,
-    formValues: state.form.Create.values,
-    uploadedFiles: state.firebase.data[filesPath]
+    formValues: state.form.Create.values
   }
 }
 
