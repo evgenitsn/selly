@@ -91,9 +91,6 @@ class EditAd extends Component {
       <div style={styles.body}>
         <form>
           <div style={styles.flex}>
-            <Dropzone onDrop={this.onFilesDrop} style={styles.dropzone}>
-              <div>Drag and drop files here or click to select</div>
-            </Dropzone>
             <h3>Edit Ad</h3>
             <h4>Details</h4>
 
