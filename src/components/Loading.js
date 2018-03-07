@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Loading = () => (
+const Loading = ({message}) => (
   <div style={styles.container}>
     <div className="sk-folding-cube">
       <div className="sk-cube1 sk-cube" />
@@ -9,7 +9,7 @@ const Loading = () => (
       <div className="sk-cube3 sk-cube" />
     </div>
     <div style={{ marginTop: 20, fontFamily: 'Oxygen', color: '#fafafa' }}>
-      Your data is coming right away!
+      {message || 'Processing'}
     </div>
   </div>
 )
