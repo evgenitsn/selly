@@ -1,7 +1,7 @@
 
 ## Selly
 
-### Simple Marketplace Progressive Web App x Firebase
+### Simple Marketplace Web App x Firebase
 
 Used Technologies
 - React
