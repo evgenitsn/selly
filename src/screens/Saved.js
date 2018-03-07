@@ -3,52 +3,65 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase'
 import { Loading, DisplayCard } from '../components'
+import { Card, CardHeader, CardText } from 'material-ui/Card'
 
 class Saved extends Component {
   renderMyAdsList() {
-    const {savedItemsByUser} = this.props
-    if (isEmpty(savedItemsByUser)) {
+    const { savedItemsIDsByUser, allAds } = this.props
+    if (isEmpty(savedItemsIDsByUser)) {
       return 'Todo list is empty. Please create UX Component for that'
     } else {
-      return Object.keys(savedItemsByUser).map((key, id) => {
-        const navigateParams = { pathname: `/ad/${key}`, state: { ad: { key, details: savedItemsByUser[key].adId } } }
-        return (
-          <div key={id}>{savedItemsByUser[key].adId}</div>
-          //<DisplayCard ads={savedItemsByUser} key={key} adKey={key} onClick={() => this.props.history.push(navigateParams)}/>
-        )
+      return Object.keys(savedItemsIDsByUser).map((keyo, id) => {
+        return Object.entries(allAds).map(([key, value]) => {
+          if (key === savedItemsIDsByUser[keyo].adId) {
+            const navigateParams = { pathname: `/ad/${key}`, state: { ad: { key, details: value } } }
+            return (
+              <Card key={key} style={styles.card} onClick={() => this.props.history.push(navigateParams)}>
+                <CardHeader title={value.title} />
+                <CardText>
+                  <p>Category: {value.category}</p>
+                  <p>Price: {value.price}</p>
+                  <p>Location: {value.location}</p>
+                  <p>Contact: {value.contactName}</p>
+                </CardText>
+              </Card>
+            )
+          }
+        })
       })
     }
   }
-  
 
   render() {
     console.log(this.props)
-    const { savedItemsByUser } = this.props
-    if (!isLoaded(savedItemsByUser)) {
+    const { savedItemsIDsByUser, allAds, userId } = this.props
+    if (!isLoaded(savedItemsIDsByUser)) {
+      return <Loading />
+    }
+    if(!isLoaded(allAds)) {
+      return <Loading />
+    }
+    if(!isLoaded(userId)) {
       return <Loading />
     }
     return <div style={styles.body}>{this.renderMyAdsList()}</div>
   }
 }
 
-const populates = [
-  { child: 'adId', root: 'ads' }
-]
+const populates = [{ child: 'adId', root: 'ads' }]
 
 const mapStateToProps = state => ({
-  savedItemsByUser: state.firebase.profile.saved,
-  userId: state.firebase.auth.uid,
+  allAds: state.firebase.data.ads,
+  savedItemsIDsByUser: state.firebase.data.savedItemsByUser,
+  userId: state.firebase.auth.uid
 })
 
 export default compose(
   connect(mapStateToProps),
   firebaseConnect(props => {
     return [
-      {
-        path: `users/${props.userId}/saved`,
-        storeAs: 'savedItemsByUser',
-      },
-      { path: `users/${props.userId}/saved`, populates }
+      { path: `users/${props.userId}/saved`, storeAs: 'savedItemsByUser' },
+      { path: `ads` }
     ]
   })
 )(Saved)
