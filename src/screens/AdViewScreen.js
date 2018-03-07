@@ -122,7 +122,7 @@ class AdViewScreen extends Component {
                   {'Category: ' + category}
                 </Chip>
                 <Chip backgroundColor={itemCondition ? '#e2e1ff' : '#EF9A9A'} style={styles.chip}>
-                  {itemCondition ? 'New' : 'Used'}
+                  {itemCondition==='true' ? 'New' : 'Used'}
                 </Chip>
               </div>
             </Paper>
